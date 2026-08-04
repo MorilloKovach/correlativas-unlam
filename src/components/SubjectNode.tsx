@@ -1,6 +1,6 @@
 import { Handle, Position } from '@xyflow/react';
 import { cn } from '../lib/utils';
-import { Check, Lock, BookOpen, CalendarPlus, FolderOpen, AlertCircle, Plus } from 'lucide-react';
+import { Check, Lock, BookOpen, CalendarPlus, AlertCircle, Plus } from 'lucide-react';
 import type { SubjectStatus } from '../hooks/useCorrelativas';
 
 interface SubjectNodeProps {
@@ -31,8 +31,6 @@ export function SubjectNode({ data }: SubjectNodeProps) {
 
   const Icon = status === 'approved' ? Check : status === 'cursada' ? Check : status === 'planned' ? CalendarPlus : (status === 'available' || status === 'recursada') ? BookOpen : Lock;
   const iconColor = status === 'approved' ? 'text-emerald-400' : status === 'cursada' ? 'text-amber-400' : status === 'planned' ? 'text-amber-400' : (status === 'available' || status === 'recursada') ? 'text-blue-400' : 'text-slate-500';
-
-  const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent(label)}%20parent:1Du25znz9DURkQG82mZ5AJdRVT3c5LfR7`;
 
   let syncClasses = "";
   if (syncStatus === 'match') {
@@ -70,16 +68,6 @@ export function SubjectNode({ data }: SubjectNodeProps) {
             )}
           </div>
           <div className="flex gap-2">
-            <a 
-              href={driveSearchUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="p-1.5 rounded-full bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500/40 transition-colors flex items-center justify-center"
-              title={`Buscar material de ${label} en Drive`}
-            >
-              <FolderOpen size={16} strokeWidth={2} />
-            </a>
             <div className={cn("p-1.5 rounded-full bg-black/20", iconColor)}>
               <Icon size={16} strokeWidth={2.5} />
             </div>
