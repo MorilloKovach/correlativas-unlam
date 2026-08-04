@@ -2,7 +2,7 @@
 
 Una aplicación web interactiva diseñada para ayudar a los estudiantes de la **Universidad Nacional de La Matanza (UNLaM)** a planificar su carrera, visualizar sus materias y organizar sus próximos cuatrimestres de forma inteligente y dinámica.
 
-![Correlativas UNLaM Banner](src/assets/hero.png) *(Si tenés una captura de pantalla, podés reemplazar esta imagen o sacarla)*
+![Correlativas UNLaM Banner](src/assets/hero.webp)
 
 ## 🚀 Características Principales
 
