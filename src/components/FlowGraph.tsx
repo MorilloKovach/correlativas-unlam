@@ -7,6 +7,8 @@ import {
   useEdgesState,
   MarkerType,
   BackgroundVariant,
+  type Node,
+  type Edge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { LayoutList, CheckSquare, Gauge } from 'lucide-react';
@@ -40,8 +42,8 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
     careerId
   } = useCorrelativas(viewingFriendId, guestCareerId);
   
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const recommendations = getRecommendations();
   const difficulty = getSemesterDifficulty();
   const lastCareerIdRef = useRef(careerId);
