@@ -8,8 +8,11 @@ export type SubjectStatus = 'approved' | 'cursada' | 'recursada' | 'available' |
 export type AppMode = 'approve' | 'plan';
 
 export interface SubjectState {
-  status: 'approved' | 'cursada';
+  status: 'approved' | 'cursada' | 'recursada';
   attempts: number;
+  p1?: number;
+  p2?: number;
+  finalGrade?: number;
 }
 
 export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?: string | null) {
@@ -115,6 +118,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     const prog = subjectProgress[id];
     if (prog) {
       if (prog.status === 'approved') return 'approved';
+      if (prog.status === 'recursada') return 'recursada';
       if (prog.status === 'cursada') {
         return prog.attempts >= 3 ? 'recursada' : 'cursada';
       }
@@ -220,6 +224,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
         next[id] = { ...prog, attempts: prog.attempts + 1 };
         
         if (next[id].attempts >= 3) {
+          next[id].status = 'recursada';
           let changed = true;
           while (changed) {
             changed = false;
@@ -242,6 +247,69 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
         return next;
       }
       return prev;
+    });
+  }, [viewingFriendId, planEstudios]);
+
+  const updateSubjectRecord = useCallback((id: string, updates: Partial<SubjectState>) => {
+    if (viewingFriendId) return;
+    setSubjectProgress(prev => {
+      const prog = prev[id];
+      if (!prog) return prev;
+      
+      const next = { ...prev };
+      next[id] = { ...prog, ...updates };
+
+      // Si pasa a recursada (ya sea por aplazo en parcial o por intentos de final), invalidar correlativas
+      if (next[id].status === 'recursada' || (next[id].status === 'cursada' && next[id].attempts >= 3)) {
+         let changed = true;
+         while (changed) {
+           changed = false;
+           for (const subjectId of Object.keys(next)) {
+             if (subjectId === id) continue;
+             const materia = planEstudios.find(m => m.id === subjectId);
+             if (materia) {
+               const hasPrereqs = materia.correlativas.every(cId => {
+                 const p = next[cId];
+                 return p && (p.status === 'approved' || (p.status === 'cursada' && p.attempts < 3));
+               });
+               if (!hasPrereqs) {
+                 delete next[subjectId];
+                 changed = true;
+               }
+             }
+           }
+         }
+      }
+      return next;
+    });
+  }, [viewingFriendId, planEstudios]);
+
+  const deleteSubjectRecord = useCallback((id: string) => {
+    if (viewingFriendId) return;
+    setSubjectProgress(prev => {
+      if (!prev[id]) return prev;
+      const next = { ...prev };
+      delete next[id];
+
+      // Invalidar correlativas
+      let changed = true;
+      while (changed) {
+        changed = false;
+        for (const subjectId of Object.keys(next)) {
+          const materia = planEstudios.find(m => m.id === subjectId);
+          if (materia) {
+            const hasPrereqs = materia.correlativas.every(cId => {
+              const p = next[cId];
+              return p && (p.status === 'approved' || (p.status === 'cursada' && p.attempts < 3));
+            });
+            if (!hasPrereqs) {
+              delete next[subjectId];
+              changed = true;
+            }
+          }
+        }
+      }
+      return next;
     });
   }, [viewingFriendId, planEstudios]);
 
@@ -315,6 +383,8 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     getStatus,
     handleNodeClick,
     incrementAttempt,
+    updateSubjectRecord,
+    deleteSubjectRecord,
     progressPercentage,
     getRecommendations,
     getSemesterDifficulty,

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   ReactFlow,
   Controls,
@@ -11,9 +11,10 @@ import {
   type Edge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { LayoutList, CheckSquare, Gauge, ChevronUp, ChevronDown } from 'lucide-react';
+import { LayoutList, CheckSquare, Gauge, ChevronUp, ChevronDown, GraduationCap } from 'lucide-react';
 
 import { SubjectNode } from './SubjectNode';
+import { GradeModal } from './GradeModal';
 import { useCorrelativas } from '../hooks/useCorrelativas';
 import { getCarreraById } from '../data/carreras';
 import { cn } from '../lib/utils';
@@ -33,6 +34,8 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
     getStatus, 
     handleNodeClick,
     incrementAttempt,
+    updateSubjectRecord,
+    deleteSubjectRecord,
     progressPercentage, 
     totalApproved, 
     totalSubjects, 
@@ -45,9 +48,24 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedGradeNode, setSelectedGradeNode] = useState<string | null>(null);
   const recommendations = getRecommendations();
   const difficulty = getSemesterDifficulty();
   const lastCareerIdRef = useRef(careerId);
+
+  const handleNodeClickWrapper = useCallback((id: string) => {
+    if (viewingFriendId) return;
+    const status = getStatus(id);
+    if (mode === 'approve' && (status === 'cursada' || status === 'approved' || status === 'recursada')) {
+      setSelectedGradeNode(id);
+    } else {
+      handleNodeClick(id);
+    }
+  }, [mode, getStatus, handleNodeClick, viewingFriendId]);
+
+  const approvedSubjects = Object.values(subjectProgress).filter(p => p.status === 'approved');
+  const sumGrades = approvedSubjects.reduce((acc, curr) => acc + (curr.finalGrade || 7), 0);
+  const promedio = approvedSubjects.length > 0 ? (sumGrades / approvedSubjects.length).toFixed(2) : 'N/A';
 
   // Calculate layout and generate nodes/edges whenever status changes
   useEffect(() => {
@@ -138,7 +156,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
                 label: materia.label,
                 status: getStatus(materia.id),
                 attempts: subjectProgress[materia.id]?.attempts || 0,
-                onClick: handleNodeClick,
+                onClick: handleNodeClickWrapper,
                 onIncrementAttempt: incrementAttempt,
               },
             });
@@ -158,7 +176,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
               ...node.data,
               status: getStatus(materia.id),
               attempts: subjectProgress[materia.id]?.attempts || 0,
-              onClick: handleNodeClick,
+              onClick: handleNodeClickWrapper,
               onIncrementAttempt: incrementAttempt,
             },
           };
@@ -292,16 +310,28 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
           </div>
         
         {mode === 'approve' && (
-          <div className="flex flex-col gap-1 mt-1">
-            <div className="flex justify-between text-xs text-slate-300 font-medium">
-              <span>Progreso de la carrera</span>
-              <span>{totalApproved} / {totalSubjects} ({progressPercentage}%)</span>
+          <div className="flex flex-col gap-3 mt-1">
+            <div className="flex flex-col gap-1">
+              <div className="flex justify-between text-xs text-slate-300 font-medium">
+                <span>Progreso de la carrera</span>
+                <span>{totalApproved} / {totalSubjects} ({progressPercentage}%)</span>
+              </div>
+              <div className="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-500 ease-out"
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
             </div>
-            <div className="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-500 ease-out"
-                style={{ width: `${progressPercentage}%` }}
-              />
+            
+            <div className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+              <div className="p-2 bg-blue-500/20 text-blue-400 rounded-lg">
+                <GraduationCap size={20} />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Promedio General</span>
+                <span className="text-xl font-bold text-slate-200">{promedio}</span>
+              </div>
             </div>
           </div>
         )}
@@ -364,6 +394,18 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
           />
         </ReactFlow>
       </div>
+
+      {selectedGradeNode && (
+        <GradeModal
+          subjectName={planEstudios.find(m => m.id === selectedGradeNode)?.label || 'Materia'}
+          subjectState={subjectProgress[selectedGradeNode] || { status: 'cursada', attempts: 0 }}
+          onSave={(updates) => updateSubjectRecord(selectedGradeNode, updates)}
+          onReset={() => {
+            deleteSubjectRecord(selectedGradeNode);
+          }}
+          onClose={() => setSelectedGradeNode(null)}
+        />
+      )}
     </div>
   );
 }
