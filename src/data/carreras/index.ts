@@ -1,0 +1,66 @@
+import type { Departamento } from '../types';
+import { informatica } from './informatica';
+import { electronica } from './electronica';
+import { industrial } from './industrial';
+import { mecanica } from './mecanica';
+import { civil } from './civil';
+import { arquitectura } from './arqui';
+import { abogacia } from './abogacia';
+
+export const departamentos: Departamento[] = [
+  {
+    id: "diit",
+    name: "Departamento de Ingeniería e Investigaciones Tecnológicas",
+    carreras: [
+      {
+        id: "informatica",
+        name: "Ingeniería en Informática",
+        planEstudios: informatica
+      },
+      {
+        id: "electronica",
+        name: "Ingeniería Electrónica",
+        planEstudios: electronica
+      },
+      {
+        id: "industrial",
+        name: "Ingeniería Industrial",
+        planEstudios: industrial
+      },
+      {
+        id: "mecanica",
+        name: "Ingeniería Mecánica",
+        planEstudios: mecanica
+      },
+      {
+        id: "civil",
+        name: "Ingeniería Civil",
+        planEstudios: civil
+      },
+      {
+        id: "arquitectura",
+        name: "Arquitectura",
+        planEstudios: arquitectura
+      }
+    ]
+  },
+  {
+    id: "dcp",
+    name: "Departamento de Derecho y Ciencias Políticas",
+    carreras: [
+      {
+        id: "abogacia",
+        name: "Abogacía",
+        planEstudios: abogacia
+      }
+    ]
+  }
+];
+
+export const getAllCarreras = () => {
+  return departamentos.flatMap(dept => dept.carreras);
+};
+
+export const getCarreraById = (id: string) => {
+  return getAllCarreras().find(c => c.id === id);
+};

@@ -1,0 +1,661 @@
+import type { Materia } from '../types';
+
+export const informatica: Materia[] = [
+  {
+    "id": "3621",
+    "label": "MATEMÁTICA DISCRETA",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3622",
+    "label": "ANÁLISIS MATEMÁTICO I",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3623",
+    "label": "PROGRAMACIÓN INICIAL",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3624",
+    "label": "INTRODUCCIÓN A LOS SISTEMAS DE INFORMACIÓN",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3625",
+    "label": "SISTEMAS DE NUMERACIÓN",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3626",
+    "label": "PRINCIPIOS DE CALIDAD DE SOFTWARE",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3627",
+    "label": "ÁLGEBRA Y GEOMETRÍA ANALÍTICA I",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3628",
+    "label": "FÍSICA I",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3622"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3629",
+    "label": "PROGRAMACIÓN ESTRUCTURADA BÁSICA",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3623"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3630",
+    "label": "INTRODUCCIÓN A LA GESTIÓN DE REQUISITOS",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3624"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3631",
+    "label": "FUNDAMENTOS DE SISTEMAS EMBEBIDOS",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3625"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3632",
+    "label": "INTRODUCCIÓN A LOS PROYECTOS INFORMÁTICOS",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3633",
+    "label": "ANÁLISIS MATEMÁTICO II",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3622"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3634",
+    "label": "FÍSICA II",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3628"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3635",
+    "label": "TÓPICOS DE PROGRAMACIÓN",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3629",
+      "3621"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3636",
+    "label": "BASES DE DATOS",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3629",
+      "3621"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3637",
+    "label": "ANÁLISIS DE SISTEMAS",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3630"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3638",
+    "label": "ARQUITECTURA DE COMPUTADORAS",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3631"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3676",
+    "label": "RESPONSABILIDAD SOCIAL UNIVERSITARIA",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3626"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3639",
+    "label": "ANÁLISIS MATEMÁTICO III",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3633"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3640",
+    "label": "ALGORITMOS Y ESTRUCTURAS DE DATOS",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3635"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3641",
+    "label": "BASES DE DATOS APLICADAS",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3635",
+      "3636"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3642",
+    "label": "PRINCIPIOS DE DISEÑOS DE SISTEMAS",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3637",
+      "3626"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3643",
+    "label": "REDES DE COMPUTADORAS",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3638"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3644",
+    "label": "GESTIÓN DE LAS ORGANIZACIONES",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3632"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3680",
+    "label": "TALLER DE INTEGRACIÓN",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3638",
+      "3636",
+      "3635",
+      "3632",
+      "3630",
+      "3626",
+      "3625",
+      "3624",
+      "3623",
+      "3621"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3645",
+    "label": "ÁLGEBRA Y GEOMETRÍA ANALÍTICA II",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3627"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3646",
+    "label": "PARADIGMAS DE PROGRAMACIÓN",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3640",
+      "3633"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3647",
+    "label": "REQUISITOS AVANZADOS",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3642"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3648",
+    "label": "DISEÑO DE SOFTWARE",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3635",
+      "3636",
+      "3642"
+    ],
+    "dificultad": "Difícil"
+  },
+  {
+    "id": "3649",
+    "label": "SISTEMAS OPERATIVOS",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3629",
+      "3638"
+    ],
+    "dificultad": "Difícil"
+  },
+  {
+    "id": "3650",
+    "label": "SEGURIDAD DE LA INFORMACIÓN",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3643",
+      "3638",
+      "3635"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3675",
+    "label": "PRÁCTICA PROFESIONAL SUPERVISADA",
+    "anio": 3,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3642",
+      "3636",
+      "3640"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3651",
+    "label": "PROBABILIDAD Y ESTADÍSTICA",
+    "anio": 3,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3645",
+      "3639",
+      "3621"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3652",
+    "label": "PROGRAMACIÓN AVANZADA",
+    "anio": 3,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3641",
+      "3646"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3653",
+    "label": "ARQUITECTURA DE SISTEMAS SOFTWARE",
+    "anio": 3,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3648"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3654",
+    "label": "VIRTUALIZACIÓN DEL HARDWARE",
+    "anio": 3,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3649",
+      "3643"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3655",
+    "label": "AUDITORÍA Y LEGISLACIÓN",
+    "anio": 3,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3650"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3656",
+    "label": "ESTADÍSTICA APLICADA",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3651"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3657",
+    "label": "AUTÓMATAS Y GRAMÁTICAS",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3646"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3658",
+    "label": "PROGRAMACIÓN CONCURRENTE",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3646",
+      "3649"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3659",
+    "label": "GESTIÓN APLICADA AL DESARROLLO DE SOFTWARE I",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3648",
+      "3647",
+      "3644"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3660",
+    "label": "SISTEMAS OPERATIVOS AVANZADOS",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3634",
+      "3654"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3661",
+    "label": "GESTIÓN DE PROYECTOS",
+    "anio": 4,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3651",
+      "3650",
+      "3644"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3662",
+    "label": "MATEMÁTICA APLICADA",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3651"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3663",
+    "label": "LENGUAJES Y COMPILADORES",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3657"
+    ],
+    "dificultad": "Difícil Suprema"
+  },
+  {
+    "id": "3664",
+    "label": "INTELIGENCIA ARTIFICIAL",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3651",
+      "3646"
+    ],
+    "dificultad": "Medio-Difícil"
+  },
+  {
+    "id": "3665",
+    "label": "GESTIÓN APLICADA AL DESARROLLO DE SOFTWARE II",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3653",
+      "3659"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3666",
+    "label": "SEGURIDAD APLICADA Y FORENSIA",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3655",
+      "3652",
+      "3649"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3667",
+    "label": "GESTIÓN DE LA CALIDAD EN PROCESOS DE SISTEMAS",
+    "anio": 4,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3661",
+      "3642"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3668",
+    "label": "INTELIGENCIA ARTIFICIAL APLICADA",
+    "anio": 5,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3664",
+      "3656"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "3669",
+    "label": "INNOVACIÓN Y EMPRENDERISMO",
+    "anio": 5,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3661"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3670",
+    "label": "CIENCIA DE DATOS",
+    "anio": 5,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3664",
+      "3656"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "3671",
+    "label": "PROYECTO FINAL DE CARRERA",
+    "anio": 5,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3667",
+      "3660",
+      "3659",
+      "3656"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3672",
+    "label": "ELECTIVA I",
+    "anio": 5,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "3661",
+      "3653",
+      "3652"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3673",
+    "label": "ELECTIVA II",
+    "anio": 5,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3661",
+      "3653",
+      "3652"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "3674",
+    "label": "ELECTIVA III",
+    "anio": 5,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "3661",
+      "3653",
+      "3652"
+    ],
+    "dificultad": "Medio"
+  },
+  {
+    "id": "901",
+    "label": "INGLÉS I",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "902",
+    "label": "INGLÉS II",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "901"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "903",
+    "label": "INGLÉS III",
+    "anio": 2,
+    "cuatrimestre": 1,
+    "correlativas": [
+      "902"
+    ],
+    "dificultad": "Medio-Fácil"
+  },
+  {
+    "id": "904",
+    "label": "INGLÉS IV",
+    "anio": 2,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "903"
+    ],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "911",
+    "label": "COMPUTACIÓN I",
+    "anio": 1,
+    "cuatrimestre": 1,
+    "correlativas": [],
+    "dificultad": "Fácil"
+  },
+  {
+    "id": "912",
+    "label": "COMPUTACIÓN II",
+    "anio": 1,
+    "cuatrimestre": 2,
+    "correlativas": [
+      "911"
+    ],
+    "dificultad": "Fácil"
+  }
+];
