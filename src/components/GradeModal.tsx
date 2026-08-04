@@ -6,12 +6,13 @@ import { cn } from '../lib/utils';
 interface GradeModalProps {
   subjectName: string;
   subjectState: SubjectState;
+  canApprove: boolean;
   onSave: (updates: Partial<SubjectState>) => void;
   onReset: () => void;
   onClose: () => void;
 }
 
-export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose }: GradeModalProps) {
+export function GradeModal({ subjectName, subjectState, canApprove, onSave, onReset, onClose }: GradeModalProps) {
   const [p1, setP1] = useState<string>(subjectState.p1 ? subjectState.p1.toString() : '');
   const [p2, setP2] = useState<string>(subjectState.p2 ? subjectState.p2.toString() : '');
   const [finalGrade, setFinalGrade] = useState<string>(
@@ -53,10 +54,19 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
       condicion = 'Recursante (Aplazo en parcial)';
       esRecursante = true;
     } else if (n1 >= 7 && n2 >= 7) {
-      condicion = 'Promocionada';
-      esPromocion = true;
+      if (canApprove) {
+        condicion = 'Promocionada';
+        esPromocion = true;
+      } else {
+        condicion = 'A Final (Debe finales previos)';
+        requiereFinal = true;
+      }
     } else {
-      condicion = 'A Final';
+      if (!canApprove) {
+        condicion = 'A Final (Debe finales previos)';
+      } else {
+        condicion = 'A Final';
+      }
       requiereFinal = true;
     }
   } else if ((isP1Valid && n1 < 4) || (isP2Valid && n2 < 4)) {
@@ -77,21 +87,26 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
       updates.status = 'approved';
       updates.finalGrade = currentPromoGrade;
     } else if (requiereFinal) {
-      const isNfValid = !isNaN(nf) && nf >= 1 && nf <= 10;
-      if (isNfValid) {
-        updates.finalGrade = nf;
-        if (nf >= 4) {
-          updates.status = 'approved';
-        } else {
-          updates.status = 'cursada'; // Sigue en final
-          updates.attempts = (subjectState.attempts || 0) + 1;
-          if (updates.attempts >= 3) {
-            updates.status = 'recursada';
-          }
-        }
-      } else {
+      if (!canApprove) {
         updates.status = 'cursada';
         updates.finalGrade = undefined;
+      } else {
+        const isNfValid = !isNaN(nf) && nf >= 1 && nf <= 10;
+        if (isNfValid) {
+          updates.finalGrade = nf;
+          if (nf >= 4) {
+            updates.status = 'approved';
+          } else {
+            updates.status = 'cursada'; // Sigue en final
+            updates.attempts = (subjectState.attempts || 0) + 1;
+            if (updates.attempts >= 3) {
+              updates.status = 'recursada';
+            }
+          }
+        } else {
+          updates.status = 'cursada';
+          updates.finalGrade = undefined;
+        }
       }
     } else {
       updates.status = 'cursada';
@@ -177,16 +192,24 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
               <label className="text-xs font-semibold text-amber-400 uppercase flex items-center gap-1">
                 <AlertTriangle size={12} /> Nota de Final (Intento {Math.min((subjectState.attempts || 0) + 1, 3)}/3)
               </label>
-              <input 
-                type="number" 
-                min="1" max="10" 
-                value={finalGrade}
-                onChange={e => setFinalGrade(e.target.value)}
-                className="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-amber-400 transition-colors"
-                placeholder="Si ya lo rendiste..."
-              />
-              {(subjectState.attempts || 0) > 0 && (
-                <span className="text-[10px] text-slate-500">Ya has desaprobado {subjectState.attempts} vez/veces este final.</span>
+              {!canApprove ? (
+                <div className="w-full bg-slate-950/50 border border-slate-700/50 rounded-lg px-3 py-2 text-slate-400 text-sm">
+                  Adeudás el final de una materia correlativa anterior. No podés rendir este final hasta aprobarla.
+                </div>
+              ) : (
+                <>
+                  <input 
+                    type="number" 
+                    min="1" max="10" 
+                    value={finalGrade}
+                    onChange={e => setFinalGrade(e.target.value)}
+                    className="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-amber-400 transition-colors"
+                    placeholder="Si ya lo rendiste..."
+                  />
+                  {(subjectState.attempts || 0) > 0 && (
+                    <span className="text-[10px] text-slate-500">Ya has desaprobado {subjectState.attempts} vez/veces este final.</span>
+                  )}
+                </>
               )}
             </div>
           )}

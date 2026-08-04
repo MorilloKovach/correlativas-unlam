@@ -147,6 +147,34 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
       return () => clearTimeout(timeoutId);
     }
   }, [subjectProgress, plannedIds, user, dbLoaded, viewingFriendId, targetCareerId]);
+  const checkPrereqsForCourse = useCallback((subjectId: string, progressMap: Record<string, SubjectState>, level = 1): boolean => {
+    const materia = planEstudios.find(m => m.id === subjectId);
+    if (!materia) return true;
+
+    return materia.correlativas.every(cId => {
+      const p = progressMap[cId];
+      if (!p) return false;
+      
+      if (level === 1) {
+        if (p.status === 'cursada' && p.attempts >= 3) return false;
+        if (p.status === 'recursada') return false;
+      } else {
+        if (p.status !== 'approved') return false;
+      }
+      
+      return checkPrereqsForCourse(cId, progressMap, level + 1);
+    });
+  }, [planEstudios]);
+
+  const checkCanApprove = useCallback((subjectId: string, progressMap: Record<string, SubjectState>): boolean => {
+    const materia = planEstudios.find(m => m.id === subjectId);
+    if (!materia) return true;
+    return materia.correlativas.every(cId => progressMap[cId]?.status === 'approved');
+  }, [planEstudios]);
+
+  const canApprove = useCallback((subjectId: string): boolean => {
+    return checkCanApprove(subjectId, subjectProgress);
+  }, [subjectProgress, checkCanApprove]);
 
   const getStatus = useCallback((id: string): SubjectStatus => {
     const prog = subjectProgress[id];
@@ -163,13 +191,10 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     const materia = planEstudios.find(m => m.id === id);
     if (!materia) return 'locked';
 
-    const hasPrereqs = materia.correlativas.every(corrId => {
-      const p = subjectProgress[corrId];
-      return p && (p.status === 'approved' || (p.status === 'cursada' && p.attempts < 3));
-    });
+    const hasPrereqs = checkPrereqsForCourse(id, subjectProgress);
     
     return hasPrereqs ? 'available' : 'locked';
-  }, [subjectProgress, plannedIds, planEstudios]);
+  }, [subjectProgress, plannedIds, planEstudios, checkPrereqsForCourse]);
 
   const handleNodeClick = useCallback((id: string) => {
     if (viewingFriendId) return;
@@ -180,19 +205,12 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
         const prog = next[id];
         
         if (!prog) {
-          const materia = planEstudios.find(m => m.id === id);
-          if (materia) {
-            const hasPrereqs = materia.correlativas.every(cId => {
-              const p = next[cId];
-              return p && (p.status === 'approved' || (p.status === 'cursada' && p.attempts < 3));
-            });
-            if (hasPrereqs) {
-              next[id] = { status: 'cursada', attempts: 0 };
-            }
+          const hasPrereqs = checkPrereqsForCourse(id, next);
+          if (hasPrereqs) {
+            next[id] = { status: 'cursada', attempts: 0 };
           }
         } else if (prog.status === 'cursada' && prog.attempts < 3) {
-          const materia = planEstudios.find(m => m.id === id);
-          const allApproved = materia?.correlativas.every(cId => next[cId]?.status === 'approved');
+          const allApproved = checkCanApprove(id, next);
           
           if (allApproved) {
             next[id] = { status: 'approved', attempts: prog.attempts };
@@ -209,15 +227,12 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
           for (const subjectId of Object.keys(next)) {
             const materia = planEstudios.find(m => m.id === subjectId);
             if (materia) {
-              const hasPrereqs = materia.correlativas.every(cId => {
-                const p = next[cId];
-                return p && (p.status === 'approved' || (p.status === 'cursada' && p.attempts < 3));
-              });
+              const hasPrereqs = checkPrereqsForCourse(subjectId, next);
               if (!hasPrereqs) {
                 delete next[subjectId];
                 changed = true;
               } else if (next[subjectId].status === 'approved') {
-                const allApproved = materia.correlativas.every(cId => next[cId]?.status === 'approved');
+                const allApproved = checkCanApprove(subjectId, next);
                 if (!allApproved) {
                   next[subjectId] = { status: 'cursada', attempts: next[subjectId].attempts };
                   changed = true;
@@ -247,7 +262,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
         return next;
       });
     }
-  }, [mode, getStatus, viewingFriendId, planEstudios]);
+  }, [mode, getStatus, viewingFriendId, checkPrereqsForCourse, checkCanApprove]);
 
   const incrementAttempt = useCallback((id: string) => {
     if (viewingFriendId) return;
@@ -426,6 +441,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     totalSubjects: planEstudios.length,
     planEstudios,
     careerId: targetCareerId,
-    syncFriendPlannedIds
+    syncFriendPlannedIds,
+    canApprove
   };
 }

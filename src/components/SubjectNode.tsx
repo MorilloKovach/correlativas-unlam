@@ -10,6 +10,7 @@ interface SubjectNodeProps {
     status: SubjectStatus;
     attempts: number;
     syncStatus?: 'match' | 'friend_planned';
+    canApprove: boolean;
     onClick: (id: string) => void;
     onIncrementAttempt: (id: string) => void;
   };

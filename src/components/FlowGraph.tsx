@@ -50,7 +50,8 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
     planEstudios,
     careerId,
     syncFriendPlannedIds,
-    plannedIds
+    plannedIds,
+    canApprove
   } = useCorrelativas(viewingFriendId, guestCareerId, syncingFriendId);
   
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
@@ -170,6 +171,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
                 status: getStatus(materia.id),
                 attempts: subjectProgress[materia.id]?.attempts || 0,
                 syncStatus,
+                canApprove: canApprove(materia.id),
                 onClick: handleNodeClickWrapper,
                 onIncrementAttempt: incrementAttempt,
               },
@@ -197,6 +199,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
               status: getStatus(materia.id),
               attempts: subjectProgress[materia.id]?.attempts || 0,
               syncStatus,
+              canApprove: canApprove(materia.id),
               onClick: handleNodeClickWrapper,
               onIncrementAttempt: incrementAttempt,
             },
@@ -418,12 +421,11 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
 
       {selectedGradeNode && (
         <GradeModal
-          subjectName={planEstudios.find(m => m.id === selectedGradeNode)?.label || 'Materia'}
+          subjectName={planEstudios.find(m => m.id === selectedGradeNode)?.label || ''}
           subjectState={subjectProgress[selectedGradeNode] || { status: 'cursada', attempts: 0 }}
+          canApprove={canApprove(selectedGradeNode)}
           onSave={(updates) => updateSubjectRecord(selectedGradeNode, updates)}
-          onReset={() => {
-            deleteSubjectRecord(selectedGradeNode);
-          }}
+          onReset={() => deleteSubjectRecord(selectedGradeNode)}
           onClose={() => setSelectedGradeNode(null)}
         />
       )}
