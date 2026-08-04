@@ -26,7 +26,13 @@ const nodeTypes = {
 const COLUMN_WIDTH = 320;
 const ROW_HEIGHT = 120;
 
-export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?: string | null, guestCareerId?: string | null }) {
+interface FlowGraphProps {
+  viewingFriendId?: string | null;
+  syncingFriendId?: string | null;
+  guestCareerId?: string | null;
+}
+
+export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: FlowGraphProps) {
   const { 
     mode, 
     setMode,
@@ -42,8 +48,10 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
     getRecommendations,
     getSemesterDifficulty,
     planEstudios,
-    careerId
-  } = useCorrelativas(viewingFriendId, guestCareerId);
+    careerId,
+    syncFriendPlannedIds,
+    plannedIds
+  } = useCorrelativas(viewingFriendId, guestCareerId, syncingFriendId);
   
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
@@ -145,6 +153,11 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
               y: slot * ROW_HEIGHT,
             };
 
+            let syncStatus: 'match' | 'friend_planned' | undefined = undefined;
+            if (syncingFriendId && syncFriendPlannedIds.has(materia.id)) {
+               syncStatus = plannedIds.has(materia.id) ? 'match' : 'friend_planned';
+            }
+
             newNodes.push({
               id: materia.id,
               type: 'subject',
@@ -156,6 +169,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
                 label: materia.label,
                 status: getStatus(materia.id),
                 attempts: subjectProgress[materia.id]?.attempts || 0,
+                syncStatus,
                 onClick: handleNodeClickWrapper,
                 onIncrementAttempt: incrementAttempt,
               },
@@ -168,6 +182,12 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
         return currentNodes.map((node) => {
           const materia = planEstudios.find((m) => m.id === node.id);
           if (!materia) return node;
+
+          let syncStatus: 'match' | 'friend_planned' | undefined = undefined;
+          if (syncingFriendId && syncFriendPlannedIds.has(materia.id)) {
+             syncStatus = plannedIds.has(materia.id) ? 'match' : 'friend_planned';
+          }
+
           return {
             ...node,
             targetPosition: 'left',
@@ -176,6 +196,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
               ...node.data,
               status: getStatus(materia.id),
               attempts: subjectProgress[materia.id]?.attempts || 0,
+              syncStatus,
               onClick: handleNodeClickWrapper,
               onIncrementAttempt: incrementAttempt,
             },

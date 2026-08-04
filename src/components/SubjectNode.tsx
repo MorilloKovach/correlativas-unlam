@@ -9,13 +9,14 @@ interface SubjectNodeProps {
     label: string;
     status: SubjectStatus;
     attempts: number;
+    syncStatus?: 'match' | 'friend_planned';
     onClick: (id: string) => void;
     onIncrementAttempt: (id: string) => void;
   };
 }
 
 export function SubjectNode({ data }: SubjectNodeProps) {
-  const { id, label, status, attempts, onClick, onIncrementAttempt } = data;
+  const { id, label, status, attempts, syncStatus, onClick, onIncrementAttempt } = data;
 
   const baseClasses = "relative w-[240px] rounded-xl p-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 font-sans border-2 border-transparent";
   
@@ -33,10 +34,17 @@ export function SubjectNode({ data }: SubjectNodeProps) {
 
   const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent(label)}%20parent:1Du25znz9DURkQG82mZ5AJdRVT3c5LfR7`;
 
+  let syncClasses = "";
+  if (syncStatus === 'match') {
+    syncClasses = "ring-4 ring-amber-400 ring-offset-2 ring-offset-slate-950 shadow-[0_0_30px_rgba(251,191,36,0.6)] animate-pulse-glow z-10";
+  } else if (syncStatus === 'friend_planned') {
+    syncClasses = "ring-2 ring-amber-500/50 border-amber-500/50 border-dashed shadow-[0_0_15px_rgba(245,158,11,0.2)]";
+  }
+
   return (
-    <div className="relative">
+    <div className={cn("relative", syncStatus === 'match' && "z-10")}>
       <div 
-        className={cn(baseClasses, statusClasses[status])}
+        className={cn(baseClasses, statusClasses[status], syncClasses)}
         onClick={() => onClick(id)}
       >
         <Handle 

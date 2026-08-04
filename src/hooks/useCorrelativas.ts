@@ -15,11 +15,12 @@ export interface SubjectState {
   finalGrade?: number;
 }
 
-export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?: string | null) {
+export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?: string | null, syncingFriendId?: string | null) {
   const { user, userProfile, loading: authLoading } = useAuth();
   const [mode, setMode] = useState<AppMode>('approve');
   const [subjectProgress, setSubjectProgress] = useState<Record<string, SubjectState>>({});
   const [plannedIds, setPlannedIds] = useState<Set<string>>(new Set());
+  const [syncFriendPlannedIds, setSyncFriendPlannedIds] = useState<Set<string>>(new Set());
   const [dbLoaded, setDbLoaded] = useState(false);
   
   // Si hay guestCareerId y no hay usuario, usamos esa. Sino perfil, sino informatica.
@@ -56,14 +57,13 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
             setTargetCareerId(loadedCareerId);
 
             const progressKey = `subjectProgress_${loadedCareerId}`;
+            const plannedKey = `plannedIds_${loadedCareerId}`;
 
             if (data[progressKey]) {
               setSubjectProgress(data[progressKey]);
             } else if (loadedCareerId === 'informatica' && data.subjectProgress) {
-              // Legacy fallback: si es de informatica y tiene el viejo subjectProgress
               setSubjectProgress(data.subjectProgress);
             } else if (loadedCareerId === 'informatica' && data.approvedIds && Array.isArray(data.approvedIds)) {
-              // Migración silenciosa de la versión muy vieja
               const migrated: Record<string, SubjectState> = {};
               data.approvedIds.forEach((id: string) => {
                 migrated[id] = { status: 'approved', attempts: 0 };
@@ -72,8 +72,15 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
             } else {
               setSubjectProgress({});
             }
+
+            if (data[plannedKey] && Array.isArray(data[plannedKey])) {
+              setPlannedIds(new Set(data[plannedKey]));
+            } else {
+              setPlannedIds(new Set());
+            }
           } else {
              setSubjectProgress({});
+             setPlannedIds(new Set());
           }
         } catch (error) {
           console.error('Error loading user data:', error);
@@ -96,15 +103,42 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     }
   }, [userProfile?.careerId, viewingFriendId]);
 
-  // Guardar en Firestore cada vez que cambia el progreso
+  // Cargar plan del amigo sincronizado si existe
+  useEffect(() => {
+    if (syncingFriendId && targetCareerId) {
+      const loadSyncFriend = async () => {
+        try {
+          const docRef = await getDoc(doc(db, 'users', syncingFriendId));
+          if (docRef.exists()) {
+            const data = docRef.data();
+            const plannedKey = `plannedIds_${targetCareerId}`;
+            if (data[plannedKey] && Array.isArray(data[plannedKey])) {
+              setSyncFriendPlannedIds(new Set(data[plannedKey]));
+            } else {
+              setSyncFriendPlannedIds(new Set());
+            }
+          }
+        } catch (error) {
+          console.error("Error loading sync friend data:", error);
+        }
+      };
+      loadSyncFriend();
+    } else {
+      setSyncFriendPlannedIds(new Set());
+    }
+  }, [syncingFriendId, targetCareerId]);
+
+  // Guardar en Firestore cada vez que cambia el progreso o el plan
   useEffect(() => {
     if (user && dbLoaded && !viewingFriendId) {
       const saveUserData = async () => {
         try {
           const progressKey = `subjectProgress_${targetCareerId}`;
+          const plannedKey = `plannedIds_${targetCareerId}`;
           await setDoc(doc(db, 'users', user.uid), {
-            [progressKey]: subjectProgress
-          }, { mergeFields: [progressKey] });
+            [progressKey]: subjectProgress,
+            [plannedKey]: Array.from(plannedIds)
+          }, { mergeFields: [progressKey, plannedKey] });
         } catch (error) {
           console.error('Error saving user data:', error);
         }
@@ -112,7 +146,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
       const timeoutId = setTimeout(saveUserData, 500);
       return () => clearTimeout(timeoutId);
     }
-  }, [subjectProgress, user, dbLoaded, viewingFriendId, targetCareerId]);
+  }, [subjectProgress, plannedIds, user, dbLoaded, viewingFriendId, targetCareerId]);
 
   const getStatus = useCallback((id: string): SubjectStatus => {
     const prog = subjectProgress[id];
@@ -391,6 +425,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     totalApproved,
     totalSubjects: planEstudios.length,
     planEstudios,
-    careerId: targetCareerId
+    careerId: targetCareerId,
+    syncFriendPlannedIds
   };
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFriends } from '../hooks/useFriends';
-import { Users, UserPlus, Search, Check, X, Eye, Loader2, X as CloseIcon } from 'lucide-react';
+import { Users, UserPlus, Search, Check, X, Eye, Loader2, X as CloseIcon, RefreshCw } from 'lucide-react';
 import { cn } from '../lib/utils';
 import type { FriendProfile } from '../hooks/useFriends';
 import { useAuth } from '../contexts/AuthContext';
@@ -8,9 +8,10 @@ import { useAuth } from '../contexts/AuthContext';
 interface FriendsPanelProps {
   onClose: () => void;
   onViewFriend: (friendUid: string, friendName: string) => void;
+  onSyncFriend: (friendUid: string, friendName: string) => void;
 }
 
-export function FriendsPanel({ onClose, onViewFriend }: FriendsPanelProps) {
+export function FriendsPanel({ onClose, onViewFriend, onSyncFriend }: FriendsPanelProps) {
   const { user } = useAuth();
   const { friends, requests, searchUserByEmail, sendFriendRequest, acceptRequest, rejectRequest, removeFriend } = useFriends();
   
@@ -108,31 +109,40 @@ export function FriendsPanel({ onClose, onViewFriend }: FriendsPanelProps) {
                 </div>
               ) : (
                 friends.map(friend => (
-                  <div key={friend.uid} className="flex items-center justify-between p-3 bg-slate-800/40 border border-slate-800 rounded-xl">
-                    <div className="flex items-center gap-3">
-                      <img src={friend.photoURL || `https://ui-avatars.com/api/?name=${friend.displayName}`} alt={friend.displayName} className="w-10 h-10 rounded-full border border-slate-700" />
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-slate-200 text-sm">{friend.displayName}</span>
-                        <span className="text-xs text-slate-400">{friend.email}</span>
+                  <div key={friend.uid} className="flex flex-col gap-2 p-3 bg-slate-800/40 border border-slate-800 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img src={friend.photoURL || `https://ui-avatars.com/api/?name=${friend.displayName}`} alt={friend.displayName} className="w-10 h-10 rounded-full border border-slate-700" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold text-slate-200 text-sm">{friend.displayName}</span>
+                          <span className="text-xs text-slate-400">{friend.email}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        onClick={() => {
-                          onViewFriend(friend.uid, friend.displayName);
-                          onClose();
-                        }}
-                        className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-colors"
-                        title="Ver progreso"
-                      >
-                        <Eye size={16} />
-                      </button>
                       <button 
                         onClick={() => removeFriend(friend.uid)}
                         className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
                         title="Eliminar amigo"
                       >
                         <X size={16} />
+                      </button>
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <button 
+                        onClick={() => onSyncFriend(friend.uid, friend.displayName)}
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-medium rounded-lg transition-colors"
+                      >
+                        <RefreshCw size={14} />
+                        Sincronizar
+                      </button>
+                      <button 
+                        onClick={() => {
+                          onViewFriend(friend.uid, friend.displayName);
+                          onClose();
+                        }}
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-lg transition-colors"
+                      >
+                        <Eye size={14} />
+                        Ver Mapa
                       </button>
                     </div>
                   </div>

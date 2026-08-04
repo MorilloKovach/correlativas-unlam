@@ -10,6 +10,7 @@ function App() {
   const { user, userProfile, loading, login, logout } = useAuth();
   const [isFriendsPanelOpen, setIsFriendsPanelOpen] = useState(false);
   const [viewingFriend, setViewingFriend] = useState<{uid: string, name: string} | null>(null);
+  const [syncingFriend, setSyncingFriend] = useState<{uid: string, name: string} | null>(null);
   const [isChangingCareer, setIsChangingCareer] = useState(false);
   
   // Guest mode state
@@ -80,6 +81,7 @@ function App() {
         <FlowGraph 
           key={activeCareerId} 
           viewingFriendId={viewingFriend?.uid} 
+          syncingFriendId={syncingFriend?.uid}
           guestCareerId={guestCareerId} 
         />
       )}
@@ -183,8 +185,16 @@ function App() {
 
       {isFriendsPanelOpen && (
         <FriendsPanel 
-          onClose={() => setIsFriendsPanelOpen(false)} 
-          onViewFriend={(uid, name) => setViewingFriend({uid, name})} 
+          onClose={() => setIsFriendsPanelOpen(false)}
+          onViewFriend={(uid, name) => {
+            setViewingFriend({ uid, name });
+            setSyncingFriend(null);
+          }}
+          onSyncFriend={(uid, name) => {
+            setSyncingFriend({ uid, name });
+            setViewingFriend(null);
+            setIsFriendsPanelOpen(false);
+          }}
         />
       )}
 
