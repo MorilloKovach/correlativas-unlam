@@ -24,6 +24,22 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
   const n2 = parseFloat(p2);
   const nf = parseFloat(finalGrade);
 
+  const [manualPromoGrade, setManualPromoGrade] = useState<number | null>(
+    subjectState.finalGrade && subjectState.finalGrade >= 7 ? subjectState.finalGrade : null
+  );
+
+  const avg = (n1 + n2) / 2;
+  const hasDecimal = !isNaN(avg) && (n1 + n2) % 2 !== 0;
+  
+  let currentPromoGrade = avg;
+  if (hasDecimal) {
+    if (manualPromoGrade === Math.floor(avg) || manualPromoGrade === Math.ceil(avg)) {
+      currentPromoGrade = manualPromoGrade;
+    } else {
+      currentPromoGrade = Math.ceil(avg);
+    }
+  }
+
   const isP1Valid = !isNaN(n1) && n1 >= 1 && n1 <= 10;
   const isP2Valid = !isNaN(n2) && n2 >= 1 && n2 <= 10;
   
@@ -59,7 +75,7 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
       updates.finalGrade = undefined;
     } else if (esPromocion) {
       updates.status = 'approved';
-      updates.finalGrade = Math.ceil((n1 + n2) / 2);
+      updates.finalGrade = currentPromoGrade;
     } else if (requiereFinal) {
       const isNfValid = !isNaN(nf) && nf >= 1 && nf <= 10;
       if (isNfValid) {
@@ -130,8 +146,28 @@ export function GradeModal({ subjectName, subjectState, onSave, onReset, onClose
           )}>
             <div className="flex-1 font-medium">{condicion}</div>
             {esPromocion && (
-              <div className="text-lg font-bold bg-emerald-500/20 px-3 py-1 rounded-lg">
-                Nota: {Math.ceil((n1 + n2) / 2)}
+              <div className="flex items-center gap-2">
+                {hasDecimal ? (
+                  <>
+                    <span className="text-xs text-emerald-500/70 mr-1 uppercase font-bold">Queda en:</span>
+                    <button 
+                      onClick={() => setManualPromoGrade(Math.floor(avg))}
+                      className={cn("px-3 py-1 rounded-lg font-bold transition-colors", currentPromoGrade === Math.floor(avg) ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/30" : "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20")}
+                    >
+                      {Math.floor(avg)}
+                    </button>
+                    <button 
+                      onClick={() => setManualPromoGrade(Math.ceil(avg))}
+                      className={cn("px-3 py-1 rounded-lg font-bold transition-colors", currentPromoGrade === Math.ceil(avg) ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/30" : "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20")}
+                    >
+                      {Math.ceil(avg)}
+                    </button>
+                  </>
+                ) : (
+                  <div className="text-lg font-bold bg-emerald-500/20 px-3 py-1 rounded-lg">
+                    Nota: {avg}
+                  </div>
+                )}
               </div>
             )}
           </div>
