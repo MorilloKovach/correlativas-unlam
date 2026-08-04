@@ -35,7 +35,7 @@ Para correr este proyecto en tu propia máquina, seguí estos pasos:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/TU_USUARIO/correlativas-unlam.git
+git clone https://github.com/MorilloKovach/correlativas-unlam.git
 cd correlativas-unlam
 ```
 
