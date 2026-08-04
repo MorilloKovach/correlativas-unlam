@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { 
-  collection, query, where, getDocs, doc, setDoc, deleteDoc, onSnapshot 
+  collection, getDocs, doc, setDoc, deleteDoc, onSnapshot 
 } from 'firebase/firestore';
 
 export interface FriendProfile {
@@ -64,50 +64,29 @@ export function useFriends() {
 
   const searchUsers = async (queryStr: string): Promise<FriendProfile[]> => {
     try {
-      const qStr = queryStr.trim();
-      const qStrLower = qStr.toLowerCase();
+      const qStrLower = queryStr.trim().toLowerCase();
+      if (!qStrLower) return [];
       
       const results: FriendProfile[] = [];
       const seen = new Set<string>();
 
-      // Buscamos por email
-      const emailQ = query(collection(db, 'users'), where('email', '==', qStrLower));
-      const emailSnap = await getDocs(emailQ);
-      emailSnap.forEach(doc => {
-        seen.add(doc.id);
-        results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
-      });
+      // Para soportar búsqueda por cualquier coincidencia parcial (nombre, apellido, partes del email)
+      // en Firestore sin servicios de terceros, traemos los usuarios y filtramos localmente.
+      // Como es una app pequeña/mediana, el costo de reads es bajo.
+      const usersSnap = await getDocs(collection(db, 'users'));
       
-      // Buscamos por nombre capitalizado (ej: "Santi")
-      if (qStr.length > 0) {
-        const namePrefix = qStr.charAt(0).toUpperCase() + qStr.slice(1).toLowerCase();
-        const nameQ = query(
-          collection(db, 'users'), 
-          where('displayName', '>=', namePrefix),
-          where('displayName', '<=', namePrefix + '\uf8ff')
-        );
-        const nameSnap = await getDocs(nameQ);
-        nameSnap.forEach(doc => {
+      usersSnap.forEach(doc => {
+        const data = doc.data();
+        const email = (data.email || '').toLowerCase();
+        const name = (data.displayName || '').toLowerCase();
+        
+        if (email.includes(qStrLower) || name.includes(qStrLower)) {
           if (!seen.has(doc.id)) {
-             seen.add(doc.id);
-             results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
+            seen.add(doc.id);
+            results.push({ uid: doc.id, ...data } as FriendProfile);
           }
-        });
-
-        // Buscamos por minúsculas (ej: "santi")
-        const nameLowerQ = query(
-          collection(db, 'users'), 
-          where('displayName', '>=', qStrLower),
-          where('displayName', '<=', qStrLower + '\uf8ff')
-        );
-        const nameLowerSnap = await getDocs(nameLowerQ);
-        nameLowerSnap.forEach(doc => {
-          if (!seen.has(doc.id)) {
-             seen.add(doc.id);
-             results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
-          }
-        });
-      }
+        }
+      });
 
       return results;
     } catch (error) {
