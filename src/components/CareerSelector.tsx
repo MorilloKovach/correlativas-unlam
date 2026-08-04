@@ -35,11 +35,11 @@ export function CareerSelector({ onComplete, isChangeMode = false, onCancel, isG
   const selectedDeptObj = departamentos.find(d => d.id === selectedDept);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-      <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-md">
+      <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[85vh]">
         
         {/* Header */}
-        <div className="p-6 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
+        <div className="p-4 sm:p-6 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center shrink-0">
           <div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
               {isChangeMode ? 'Cambiar de Carrera' : '¡Bienvenido!'}
@@ -51,7 +51,7 @@ export function CareerSelector({ onComplete, isChangeMode = false, onCancel, isG
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto flex-1 flex flex-col gap-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col gap-4 sm:gap-6">
           
           {/* Paso 1: Departamento */}
           <div>
@@ -111,7 +111,7 @@ export function CareerSelector({ onComplete, isChangeMode = false, onCancel, isG
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-slate-800 bg-slate-900/50 flex justify-between items-center">
+        <div className="p-4 sm:p-6 border-t border-slate-800 bg-slate-900/50 flex justify-between items-center shrink-0">
           {isGuest ? (
             <button
               onClick={onCancel}

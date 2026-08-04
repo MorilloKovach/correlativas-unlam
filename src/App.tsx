@@ -86,21 +86,21 @@ function App() {
       
       {/* Banner de Viendo a Amigo */}
       {viewingFriend && (
-        <div className="absolute top-0 left-0 right-0 z-40 flex justify-center mt-4">
-          <div className="bg-amber-500/20 backdrop-blur-md border border-amber-500/50 text-amber-200 px-6 py-3 rounded-full flex items-center gap-4 shadow-2xl shadow-amber-900/20 animate-in slide-in-from-top-4">
-            <span className="font-semibold">Viendo el mapa de {viewingFriend.name}</span>
+        <div className="absolute bottom-20 sm:bottom-auto sm:top-0 left-0 right-0 z-40 flex justify-center sm:mt-4 pointer-events-none">
+          <div className="bg-amber-500/20 backdrop-blur-md border border-amber-500/50 text-amber-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full flex items-center gap-3 sm:gap-4 shadow-2xl shadow-amber-900/20 animate-in slide-in-from-bottom-4 sm:slide-in-from-top-4 pointer-events-auto mx-4 text-center">
+            <span className="font-semibold text-xs sm:text-base truncate max-w-[150px] sm:max-w-none">Viendo el mapa de {viewingFriend.name}</span>
             <button 
               onClick={() => setViewingFriend(null)}
-              className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 px-3 py-1.5 rounded-full transition-colors text-sm"
+              className="flex items-center gap-1 sm:gap-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full transition-colors text-xs sm:text-sm whitespace-nowrap"
             >
-              <ArrowLeft size={16} /> Volver a mi mapa
+              <ArrowLeft size={14} className="sm:w-4 sm:h-4" /> Volver
             </button>
           </div>
         </div>
       )}
 
       {/* Auth Floating Button & Friends Button */}
-      <div className="absolute top-4 right-4 z-40 flex flex-col items-end gap-3">
+      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-40 flex flex-col items-end gap-2 sm:gap-3">
         {loading ? (
           <div className="p-3 rounded-full bg-slate-900/50 backdrop-blur border border-slate-700 shadow-xl flex items-center justify-center">
             <Loader2 className="animate-spin text-slate-400" size={20} />
@@ -140,10 +140,11 @@ function App() {
             {/* Botón de Amigos */}
             <button 
               onClick={() => setIsFriendsPanelOpen(true)}
-              className="flex items-center gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-700 shadow-xl rounded-full px-4 py-2 hover:bg-slate-800 transition-colors text-slate-200"
+              className="flex items-center gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-700 shadow-xl rounded-full p-2 sm:px-4 sm:py-2 hover:bg-slate-800 transition-colors text-slate-200"
+              title="Amigos"
             >
               <Users size={16} className="text-indigo-400" />
-              <span className="text-sm font-semibold">Amigos</span>
+              <span className="hidden sm:inline text-sm font-semibold">Amigos</span>
             </button>
           </>
         ) : (

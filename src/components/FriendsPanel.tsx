@@ -57,7 +57,7 @@ export function FriendsPanel({ onClose, onViewFriend }: FriendsPanelProps) {
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[500px]"
+        className="w-[95%] max-w-md bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] max-h-[600px]"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}

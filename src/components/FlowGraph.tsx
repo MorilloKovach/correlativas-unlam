@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ReactFlow,
   Controls,
@@ -11,7 +11,7 @@ import {
   type Edge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { LayoutList, CheckSquare, Gauge } from 'lucide-react';
+import { LayoutList, CheckSquare, Gauge, ChevronUp, ChevronDown } from 'lucide-react';
 
 import { SubjectNode } from './SubjectNode';
 import { useCorrelativas } from '../hooks/useCorrelativas';
@@ -44,6 +44,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
   
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const recommendations = getRecommendations();
   const difficulty = getSemesterDifficulty();
   const lastCareerIdRef = useRef(careerId);
@@ -252,13 +253,24 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
 
   return (
     <div className="w-full h-full flex flex-col bg-slate-950">
-      <header className="absolute top-4 left-4 z-10 glass rounded-2xl p-4 flex flex-col gap-4 min-w-[320px] max-w-[350px]">
-        <div>
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent mb-2">
+      <header className="absolute bottom-2 left-2 right-2 sm:bottom-auto sm:right-auto sm:top-4 sm:left-4 z-20 glass rounded-2xl p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 sm:min-w-[320px] sm:max-w-[350px] max-h-[50vh] sm:max-h-[calc(100vh-2rem)] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] sm:shadow-2xl border border-slate-700/50 transition-all duration-300">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent truncate pr-2">
             {carrera?.name || 'Cargando...'}
           </h1>
-          
-          <div className="flex bg-slate-800/80 p-1 rounded-lg">
+          <button 
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
+          >
+            {isSidebarOpen ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+          </button>
+        </div>
+        
+        <div className={cn(
+          "flex-col gap-3 sm:gap-4 overflow-y-auto sm:flex",
+          isSidebarOpen ? "flex" : "hidden"
+        )}>
+          <div className="flex bg-slate-800/80 p-1 rounded-lg shrink-0">
             <button 
               onClick={() => setMode('approve')}
               className={cn(
@@ -278,7 +290,6 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
               <LayoutList size={14} /> Planificar
             </button>
           </div>
-        </div>
         
         {mode === 'approve' && (
           <div className="flex flex-col gap-1 mt-1">
@@ -328,6 +339,7 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
             </div>
           </div>
         )}
+        </div>
       </header>
 
       <div className="flex-1">
@@ -347,7 +359,8 @@ export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?
         >
           <Background color="#334155" variant={BackgroundVariant.Dots} gap={24} size={2} />
           <Controls 
-            className="!bg-slate-900 !border-slate-600 !fill-white shadow-2xl [&>button]:!bg-slate-800 [&>button]:!border-slate-700 hover:[&>button]:!bg-indigo-600 transition-colors" 
+            position="bottom-right"
+            className="!bg-slate-900 !border-slate-600 !fill-white shadow-2xl [&>button]:!bg-slate-800 [&>button]:!border-slate-700 hover:[&>button]:!bg-indigo-600 transition-colors sm:mb-4 sm:mr-4 mb-2 mr-2" 
           />
         </ReactFlow>
       </div>
