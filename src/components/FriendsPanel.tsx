@@ -13,43 +13,41 @@ interface FriendsPanelProps {
 
 export function FriendsPanel({ onClose, onViewFriend, onSyncFriend }: FriendsPanelProps) {
   const { user } = useAuth();
-  const { friends, requests, searchUserByEmail, sendFriendRequest, acceptRequest, rejectRequest, removeFriend } = useFriends();
+  const { friends, requests, searchUsers, sendFriendRequest, acceptRequest, rejectRequest, removeFriend } = useFriends();
   
   const [tab, setTab] = useState<'friends' | 'requests' | 'search'>('friends');
   const [searchEmail, setSearchEmail] = useState('');
-  const [searchResult, setSearchResult] = useState<FriendProfile | null>(null);
+  const [searchResults, setSearchResults] = useState<FriendProfile[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState('');
-  const [requestSent, setRequestSent] = useState(false);
+  const [requestsSentTo, setRequestsSentTo] = useState<Set<string>>(new Set());
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchEmail) return;
     if (searchEmail.toLowerCase() === user?.email?.toLowerCase()) {
       setSearchError('No puedes buscarte a ti mismo.');
-      setSearchResult(null);
+      setSearchResults([]);
       return;
     }
     
     setIsSearching(true);
     setSearchError('');
-    setRequestSent(false);
     
-    const result = await searchUserByEmail(searchEmail);
-    if (result) {
-      setSearchResult(result);
+    const results = await searchUsers(searchEmail);
+    if (results.length > 0) {
+      setSearchResults(results.filter(r => r.uid !== user?.uid)); // Filter out self just in case
     } else {
-      setSearchResult(null);
-      setSearchError('No se encontró ningún usuario con ese email.');
+      setSearchResults([]);
+      setSearchError('No se encontraron usuarios.');
     }
     setIsSearching(false);
   };
 
-  const handleSendRequest = async () => {
-    if (!searchResult) return;
-    const success = await sendFriendRequest(searchResult.uid);
+  const handleSendRequest = async (targetUid: string) => {
+    const success = await sendFriendRequest(targetUid);
     if (success) {
-      setRequestSent(true);
+      setRequestsSentTo(prev => new Set(prev).add(targetUid));
     } else {
       setSearchError('Hubo un error al enviar la solicitud.');
     }
@@ -192,53 +190,66 @@ export function FriendsPanel({ onClose, onViewFriend, onSyncFriend }: FriendsPan
 
           {tab === 'search' && (
             <div className="flex flex-col gap-4">
-              <form onSubmit={handleSearch} className="flex gap-2">
-                <input 
-                  type="email" 
-                  value={searchEmail}
-                  onChange={(e) => setSearchEmail(e.target.value)}
-                  placeholder="Email del usuario..."
-                  className="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500"
-                  required
-                />
+              <form onSubmit={handleSearch} className="flex flex-col gap-3">
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={searchEmail}
+                    onChange={e => setSearchEmail(e.target.value)}
+                    placeholder="Ingresá un email o nombre..."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                  <Search className="absolute left-3 top-3 text-slate-500" size={18} />
+                </div>
                 <button 
-                  type="submit" 
-                  disabled={isSearching}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-lg transition-colors flex items-center justify-center min-w-[40px]"
+                  type="submit"
+                  disabled={isSearching || !searchEmail}
+                  className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
-                  {isSearching ? <Loader2 size={18} className="animate-spin" /> : <Search size={18} />}
+                  {isSearching ? <Loader2 className="animate-spin" size={18} /> : <Search size={18} />}
+                  Buscar
                 </button>
+                
+                {searchError && (
+                  <p className="text-red-400 text-sm text-center">{searchError}</p>
+                )}
               </form>
 
-              {searchError && (
-                <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg text-center">
-                  {searchError}
-                </div>
-              )}
+              {searchResults.length > 0 && (
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Resultados ({searchResults.length})</h3>
+                  {searchResults.map(result => {
+                    const isFriend = friends.some(f => f.uid === result.uid);
+                    const isSent = requestsSentTo.has(result.uid);
 
-              {searchResult && (
-                <div className="flex items-center justify-between p-4 bg-slate-800 border border-slate-700 rounded-xl mt-2 animate-in slide-in-from-bottom-2">
-                  <div className="flex items-center gap-3">
-                    <img src={searchResult.photoURL || `https://ui-avatars.com/api/?name=${searchResult.displayName}`} alt={searchResult.displayName} className="w-12 h-12 rounded-full border border-slate-600" />
-                    <div className="flex flex-col">
-                      <span className="font-semibold text-slate-100">{searchResult.displayName}</span>
-                      <span className="text-xs text-slate-400">{searchResult.email}</span>
-                    </div>
-                  </div>
-                  
-                  {friends.some(f => f.uid === searchResult.uid) ? (
-                    <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded-md">Ya son amigos</span>
-                  ) : requestSent ? (
-                    <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-md border border-emerald-500/30">Solicitud enviada</span>
-                  ) : (
-                    <button 
-                      onClick={handleSendRequest}
-                      className="flex items-center gap-1 text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-lg transition-colors shadow-lg shadow-emerald-900/20"
-                    >
-                      <UserPlus size={14} />
-                      Agregar
-                    </button>
-                  )}
+                    return (
+                      <div key={result.uid} className="flex flex-col gap-3 p-4 bg-slate-800/40 border border-slate-700 rounded-xl animate-in slide-in-from-bottom-2">
+                        <div className="flex items-center gap-3">
+                          <img src={result.photoURL || `https://ui-avatars.com/api/?name=${result.displayName}`} alt={result.displayName} className="w-12 h-12 rounded-full border-2 border-slate-700" />
+                          <div className="flex flex-col">
+                            <span className="font-bold text-slate-200">{result.displayName}</span>
+                            <span className="text-xs text-slate-400">{result.email}</span>
+                          </div>
+                        </div>
+                        {isFriend ? (
+                          <div className="flex items-center justify-center gap-2 py-2 text-emerald-400 text-sm font-medium bg-emerald-500/10 rounded-lg">
+                            <Check size={16} /> Ya son amigos
+                          </div>
+                        ) : isSent ? (
+                          <div className="flex items-center justify-center gap-2 py-2 text-indigo-400 text-sm font-medium bg-indigo-500/10 rounded-lg">
+                            <Check size={16} /> Solicitud enviada
+                          </div>
+                        ) : (
+                          <button 
+                            onClick={() => handleSendRequest(result.uid)}
+                            className="flex items-center justify-center gap-2 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors"
+                          >
+                            <UserPlus size={16} /> Agregar amigo
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

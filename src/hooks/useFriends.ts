@@ -62,17 +62,57 @@ export function useFriends() {
     };
   }, [user]);
 
-  const searchUserByEmail = async (email: string): Promise<FriendProfile | null> => {
+  const searchUsers = async (queryStr: string): Promise<FriendProfile[]> => {
     try {
-      const q = query(collection(db, 'users'), where('email', '==', email.trim().toLowerCase()));
-      const querySnapshot = await getDocs(q);
-      if (querySnapshot.empty) return null;
+      const qStr = queryStr.trim();
+      const qStrLower = qStr.toLowerCase();
       
-      const doc = querySnapshot.docs[0];
-      return { uid: doc.id, ...doc.data() } as FriendProfile;
+      const results: FriendProfile[] = [];
+      const seen = new Set<string>();
+
+      // Buscamos por email
+      const emailQ = query(collection(db, 'users'), where('email', '==', qStrLower));
+      const emailSnap = await getDocs(emailQ);
+      emailSnap.forEach(doc => {
+        seen.add(doc.id);
+        results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
+      });
+      
+      // Buscamos por nombre capitalizado (ej: "Santi")
+      if (qStr.length > 0) {
+        const namePrefix = qStr.charAt(0).toUpperCase() + qStr.slice(1).toLowerCase();
+        const nameQ = query(
+          collection(db, 'users'), 
+          where('displayName', '>=', namePrefix),
+          where('displayName', '<=', namePrefix + '\uf8ff')
+        );
+        const nameSnap = await getDocs(nameQ);
+        nameSnap.forEach(doc => {
+          if (!seen.has(doc.id)) {
+             seen.add(doc.id);
+             results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
+          }
+        });
+
+        // Buscamos por minúsculas (ej: "santi")
+        const nameLowerQ = query(
+          collection(db, 'users'), 
+          where('displayName', '>=', qStrLower),
+          where('displayName', '<=', qStrLower + '\uf8ff')
+        );
+        const nameLowerSnap = await getDocs(nameLowerQ);
+        nameLowerSnap.forEach(doc => {
+          if (!seen.has(doc.id)) {
+             seen.add(doc.id);
+             results.push({ uid: doc.id, ...doc.data() } as FriendProfile);
+          }
+        });
+      }
+
+      return results;
     } catch (error) {
-      console.error("Error buscando usuario:", error);
-      return null;
+      console.error("Error buscando usuarios:", error);
+      return [];
     }
   };
 
@@ -141,7 +181,7 @@ export function useFriends() {
     friends,
     requests,
     loading,
-    searchUserByEmail,
+    searchUsers,
     sendFriendRequest,
     acceptRequest,
     rejectRequest,
