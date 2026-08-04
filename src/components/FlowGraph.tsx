@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   ReactFlow,
   Controls,
@@ -23,7 +23,7 @@ const nodeTypes = {
 const COLUMN_WIDTH = 320;
 const ROW_HEIGHT = 120;
 
-export function FlowGraph({ viewingFriendId }: { viewingFriendId?: string | null }) {
+export function FlowGraph({ viewingFriendId, guestCareerId }: { viewingFriendId?: string | null, guestCareerId?: string | null }) {
   const { 
     mode, 
     setMode,
@@ -38,7 +38,7 @@ export function FlowGraph({ viewingFriendId }: { viewingFriendId?: string | null
     getSemesterDifficulty,
     planEstudios,
     careerId
-  } = useCorrelativas(viewingFriendId);
+  } = useCorrelativas(viewingFriendId, guestCareerId);
   
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -48,7 +48,6 @@ export function FlowGraph({ viewingFriendId }: { viewingFriendId?: string | null
 
   // Calculate layout and generate nodes/edges whenever status changes
   useEffect(() => {
-    const columnCounts: Record<number, number> = {};
     const saved = localStorage.getItem(`correlativas-node-positions-v3-${careerId}`);
     const savedPositions: Record<string, { x: number, y: number }> = saved ? JSON.parse(saved) : {};
 

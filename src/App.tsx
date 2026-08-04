@@ -3,7 +3,7 @@ import { FlowGraph } from './components/FlowGraph';
 import { useAuth } from './contexts/AuthContext';
 import { FriendsPanel } from './components/FriendsPanel';
 import { CareerSelector } from './components/CareerSelector';
-import { LogIn, LogOut, Loader2, Users, ArrowLeft, BookOpen, GraduationCap } from 'lucide-react';
+import { LogOut, Loader2, Users, ArrowLeft, BookOpen, GraduationCap } from 'lucide-react';
 import { getCarreraById } from './data/carreras';
 
 function App() {
