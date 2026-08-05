@@ -13,6 +13,7 @@ import { nutricion } from './nutricion';
 import { enfermeria } from './enfermeria';
 import { kinesiologia } from './kinesiologia';
 import { laborales } from './laborales';
+import { comunicacion } from './comunicacion';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -148,6 +149,11 @@ export const departamentos: Departamento[] = [
         id: "laborales",
         name: "Licenciatura en Relaciones Laborales",
         planEstudios: laborales
+      },
+      {
+        id: "comunicacion",
+        name: "Licenciatura en Comunicación Social",
+        planEstudios: comunicacion
       }
     ]
   }
