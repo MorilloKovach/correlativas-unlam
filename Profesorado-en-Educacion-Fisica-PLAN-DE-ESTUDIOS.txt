@@ -1,0 +1,552 @@
+Carrera
+Duración
+Modalidad:
+Estado Versión
+
+Plan de Estudios
+Profesor de Educación
+Física
+
+(404) - PROFESORADO EN EDUCACIÓN FÍSICA
+4 años
+Plan/Versión
+Presencial
+Cantidad de Materias
+Activo Vigente
+Estado Plan
+
+Código
+
+Año
+
+Materias Correlativas
+
+00180 INTRODUCCION A LA EPISTEMOLOGIA
+
+1
+
+---
+
+4.00
+
+64.00
+
+00390 TEORIA DEL APRENDIZAJE
+
+1
+
+---
+
+2.00
+
+32.00
+
+00391 PEDAGOGIA
+
+1
+
+---
+
+2.00
+
+32.00
+
+00392 BIOLOGIA
+
+1
+
+---
+
+2.00
+
+32.00
+
+00393 EDUCACION SANITARIA
+
+1
+
+---
+
+4.00
+
+64.00
+
+00394 INTRODUCCION A LA PSICOLOGIA
+
+1
+
+---
+
+2.00
+
+32.00
+
+00395 ECOLOGIA Y VIDA AL AIRE LIBRE
+
+1
+
+---
+
+2.00
+
+32.00
+
+00397 GIMNASIA I A
+
+1
+
+---
+
+2.00
+
+96.00
+
+00398 ATLETISMO I A
+
+1
+
+---
+
+2.00
+
+96.00
+
+00399 HANDBOL I A
+
+1
+
+---
+
+2.00
+
+96.00
+
+00404 NATACION I A
+
+1
+
+---
+
+2.00
+
+96.00
+
+00901 INGLES NIVEL I
+
+1
+
+---
+
+4.00
+
+64.00
+
+00911 COMPUTACION NIVEL I
+
+1
+
+---
+
+4.00
+
+64.00
+
+1
+
+---
+
+4.00
+
+192.00
+
+01754 ELEMENTOS DE SOCIOLOGIA EN EL DEPORTE
+
+1
+
+---
+
+4.00
+
+192.00
+
+01772 ANATOMIA Y FISIOLOGIA
+
+1
+
+---
+
+4.00
+
+192.00
+
+00400 BASQUETBOL I A
+
+2
+
+---
+
+2.00
+
+96.00
+
+00401 PSICOLOGIA EVOLUTIVA I
+
+2
+
+00394
+
+4.00
+
+192.00
+
+00402 DIDACTICA GENERAL
+
+2
+
+00390 - 00391
+
+3.00
+
+144.00
+
+00405 GIMNASIA II A
+
+2
+
+00397
+
+2.00
+
+96.00
+
+00406 ATLETISMO II A
+
+2
+
+00398
+
+2.00
+
+96.00
+
+00408 RUGBY I A / CESTOBOL I A
+
+2
+
+---
+
+2.00
+
+96.00
+
+00415 NATACION II A
+
+2
+
+00404
+
+2.00
+
+96.00
+
+00902 INGLES NIVEL II
+
+2
+
+00901
+
+4.00
+
+64.00
+
+00912 COMPUTACION NIVEL II
+
+2
+
+00911
+
+4.00
+
+64.00
+
+01730 FISIOLOGIA DEL EJERCICIO
+
+2
+
+00393 - 01772
+
+3.00
+
+48.00
+
+2
+
+---
+
+2.00
+
+96.00
+
+01753
+
+01755
+
+Materia
+
+(1) - 2000-1
+47
+Activo Vigente
+
+DESARROLLO EVOLUTIVO DE LAS ACTIVIDADES
+MOTORAS
+
+ESTADISTICA Y EVALUACION DE LAS
+ACTIVIDADES FISICAS
+
+Fecha de Impresión: 21-08-2025
+
+H.Sem H.Tot
+
+Página 1 de 2
+
+Carrera
+Duración
+Modalidad:
+Estado Versión
+
+Plan de Estudios
+Profesor de Educación
+Física
+
+(404) - PROFESORADO EN EDUCACIÓN FÍSICA
+4 años
+Plan/Versión
+Presencial
+Cantidad de Materias
+Activo Vigente
+Estado Plan
+
+Código
+
+Año
+
+Materias Correlativas
+
+01773 ORGANIZACION DE LAS ACTIVIDADES LUDICAS
+
+2
+
+---
+
+4.00
+
+64.00
+
+01774 ETICA Y DEONTOLOGIA PROFESIONAL
+
+2
+
+00180
+
+3.00
+
+48.00
+
+01775 PSICOLOGIA SOCIAL
+
+2
+
+00394
+
+6.00
+
+96.00
+
+00407 VOLEIBOL I A
+
+3
+
+---
+
+3.00
+
+144.00
+
+3
+
+00402
+
+6.00
+
+288.00
+
+00414 PSICOLOGIA EVOLUTIVA II
+
+3
+
+00401
+
+3.00
+
+48.00
+
+00416 GIMNASIA III A
+
+3
+
+00405
+
+3.00
+
+144.00
+
+00417 SOFTBOL I A
+
+3
+
+---
+
+3.00
+
+144.00
+
+00418 FUTBOL I A / EXPRESION CORPORAL I A
+
+3
+
+---
+
+3.00
+
+144.00
+
+00419 HOCKEY SOBRE CESPED I A
+
+3
+
+---
+
+3.00
+
+144.00
+
+01732 BIOMECANICA
+
+3
+
+01730
+
+3.00
+
+48.00
+
+3
+
+01732
+
+6.00
+
+96.00
+
+00903 INGLES NIVEL III
+
+4
+
+00902
+
+4.00
+
+64.00
+
+00904 INGLES NIVEL IV
+
+4
+
+00903
+
+4.00
+
+64.00
+
+01757 HISTORIA DE LA EDUCACION FISICA
+
+4
+
+01777
+
+LEGISLACION Y ADMINISTRACION DE LA
+EDUCACION FISICA
+
+4
+
+01774
+
+4.00
+
+192.00
+
+01777 HISTORIA DE LA EDUCACION ARGENTINA
+
+4
+
+00391
+
+6.00
+
+96.00
+
+01778 FOLKLORE Y TANGO
+
+4
+
+01773
+
+3.00
+
+48.00
+
+01779 ELOCUCION
+
+4
+
+00413
+
+3.00
+
+144.00
+
+01780 OBSERVACION Y PRACTICA DOCENTE
+
+4
+
+00413
+
+12.00
+
+576.00
+
+00413
+
+01776
+
+01758
+
+Materia
+
+(1) - 2000-1
+47
+Activo Vigente
+
+METODOLOGIA DE LA ENSEÑANZA DE LA
+EDUCACION FISICA
+
+INTRODUCCION A LA ACTVIDAD FISICA
+ESPECIAL
+
+Fecha de Impresión: 21-08-2025
+
+H.Sem H.Tot
+
+Página 2 de 2
+
+

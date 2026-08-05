@@ -16,6 +16,7 @@ import { laborales } from './laborales';
 import { comunicacion } from './comunicacion';
 import { trabajo_social } from './trabajo_social';
 import { educacion_fisica } from './educacion_fisica';
+import { profesorado_educacion_fisica } from './profesorado_educacion_fisica';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -166,6 +167,11 @@ export const departamentos: Departamento[] = [
         id: "educacion_fisica",
         name: "Licenciatura en Educación Física",
         planEstudios: educacion_fisica
+      },
+      {
+        id: "profesorado_educacion_fisica",
+        name: "Profesorado en Educación Física",
+        planEstudios: profesorado_educacion_fisica
       }
     ]
   }
