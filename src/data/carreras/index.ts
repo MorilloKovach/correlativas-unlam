@@ -11,6 +11,7 @@ import { odontologia } from './odontologia';
 import { medicina } from './medicina';
 import { nutricion } from './nutricion';
 import { enfermeria } from './enfermeria';
+import { kinesiologia } from './kinesiologia';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -104,6 +105,11 @@ export const departamentos: Departamento[] = [
         id: "enfermeria",
         name: "Licenciatura en Enfermería",
         planEstudios: enfermeria
+      },
+      {
+        id: "kinesiologia",
+        name: "Licenciatura en Kinesiología y Fisiatría",
+        planEstudios: kinesiologia
       }
     ]
   },
