@@ -1,0 +1,65 @@
+import type { Materia } from '../types';
+
+export const educacion_fisica: Materia[] = [
+  // AÑO 1
+  { id: '00180', label: 'Introducción a la Epistemología', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00390', label: 'Teoría del Aprendizaje', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00391', label: 'Pedagogía', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00392', label: 'Biología', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00393', label: 'Educación Sanitaria', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00394', label: 'Introducción a la Psicología', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00395', label: 'Ecología y Vida al Aire Libre', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00397', label: 'Gimnasia I A', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00398', label: 'Atletismo I A', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00399', label: 'Handbol I A', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00404', label: 'Natación I A', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00901', label: 'Inglés Nivel I', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '00911', label: 'Computación Nivel I', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '01753', label: 'Desarrollo Evolutivo de las Actividades Motoras', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '01754', label: 'Elementos de Sociología en el Deporte', anio: 1, cuatrimestre: 1, correlativas: [] },
+  { id: '01772', label: 'Anatomía y Fisiología', anio: 1, cuatrimestre: 1, correlativas: [] },
+
+  // AÑO 2
+  { id: '00400', label: 'Básquetbol I A', anio: 2, cuatrimestre: 1, correlativas: [] },
+  { id: '00401', label: 'Psicología Evolutiva I', anio: 2, cuatrimestre: 1, correlativas: ['00394'] },
+  { id: '00402', label: 'Didáctica General', anio: 2, cuatrimestre: 1, correlativas: ['00390', '00391'] },
+  { id: '00405', label: 'Gimnasia II A', anio: 2, cuatrimestre: 1, correlativas: ['00397'] },
+  { id: '00406', label: 'Atletismo II A', anio: 2, cuatrimestre: 1, correlativas: ['00398'] },
+  { id: '00408', label: 'Rugby I A / Cestobol I A', anio: 2, cuatrimestre: 1, correlativas: [] },
+  { id: '00415', label: 'Natación II A', anio: 2, cuatrimestre: 1, correlativas: ['00404'] },
+  { id: '00902', label: 'Inglés Nivel II', anio: 2, cuatrimestre: 1, correlativas: ['00901'] },
+  { id: '00912', label: 'Computación Nivel II', anio: 2, cuatrimestre: 1, correlativas: ['00911'] },
+  { id: '01730', label: 'Fisiología del Ejercicio', anio: 2, cuatrimestre: 1, correlativas: ['01772', '00393'] },
+  { id: '01755', label: 'Estadística y Evaluación de las Actividades Físicas', anio: 2, cuatrimestre: 1, correlativas: [] },
+  { id: '01773', label: 'Organización de las Actividades Lúdicas', anio: 2, cuatrimestre: 1, correlativas: [] },
+  { id: '01774', label: 'Ética y Deontología Profesional', anio: 2, cuatrimestre: 1, correlativas: ['00180'] },
+  { id: '01775', label: 'Psicología Social', anio: 2, cuatrimestre: 1, correlativas: ['00394'] },
+
+  // AÑO 3
+  { id: '00407', label: 'Voleibol I A', anio: 3, cuatrimestre: 1, correlativas: [] },
+  { id: '00413', label: 'Metodología de la Enseñanza de la Educación Física', anio: 3, cuatrimestre: 1, correlativas: ['00402'] },
+  { id: '00414', label: 'Psicología Evolutiva II', anio: 3, cuatrimestre: 1, correlativas: ['00401'] },
+  { id: '00416', label: 'Gimnasia III A', anio: 3, cuatrimestre: 1, correlativas: ['00405'] },
+  { id: '00417', label: 'Softbol I A', anio: 3, cuatrimestre: 1, correlativas: [] },
+  { id: '00418', label: 'Fútbol I A / Expresión Corporal I A', anio: 3, cuatrimestre: 1, correlativas: [] },
+  { id: '00419', label: 'Hockey Sobre Césped I A', anio: 3, cuatrimestre: 1, correlativas: [] },
+  { id: '01732', label: 'Biomecánica', anio: 3, cuatrimestre: 1, correlativas: ['01730'] },
+  { id: '01776', label: 'Introducción a la Actividad Física Especial', anio: 3, cuatrimestre: 1, correlativas: ['01732'] },
+
+  // AÑO 4
+  { id: '00903', label: 'Inglés Nivel III', anio: 4, cuatrimestre: 1, correlativas: ['00902'] },
+  { id: '00904', label: 'Inglés Nivel IV', anio: 4, cuatrimestre: 1, correlativas: ['00903'] },
+  { id: '01757', label: 'Historia de la Educación Física', anio: 4, cuatrimestre: 1, correlativas: ['01777'] },
+  { id: '01758', label: 'Legislación y Administración de la Educación Física', anio: 4, cuatrimestre: 1, correlativas: [] },
+  { id: '01777', label: 'Historia de la Educación Argentina', anio: 4, cuatrimestre: 1, correlativas: ['00391'] },
+  { id: '01778', label: 'Folklore y Tango', anio: 4, cuatrimestre: 1, correlativas: ['01773'] },
+  { id: '01779', label: 'Elocución', anio: 4, cuatrimestre: 1, correlativas: ['00413'] },
+  { id: '01780', label: 'Observación y Práctica Docente', anio: 4, cuatrimestre: 1, correlativas: [] },
+  { id: '01781', label: 'Elemento de Relaciones Públicas e Institucionales', anio: 4, cuatrimestre: 1, correlativas: [] },
+  { id: '01782', label: 'Elementos de Comercialización en el Deporte', anio: 4, cuatrimestre: 1, correlativas: [] },
+  { id: '01783', label: 'Legislación Deportiva', anio: 4, cuatrimestre: 1, correlativas: ['01774'] },
+  { id: '01784', label: 'Seminario de Tecnología Deportiva', anio: 4, cuatrimestre: 1, correlativas: [] },
+  { id: '01785', label: 'Investigación Aplicada', anio: 4, cuatrimestre: 1, correlativas: ['01788'] },
+  { id: '01786', label: 'Medicina Deportiva', anio: 4, cuatrimestre: 1, correlativas: ['01732'] },
+  { id: '01788', label: 'Metodología de la Investigación', anio: 4, cuatrimestre: 1, correlativas: ['01774'] }
+];

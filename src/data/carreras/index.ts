@@ -15,6 +15,7 @@ import { kinesiologia } from './kinesiologia';
 import { laborales } from './laborales';
 import { comunicacion } from './comunicacion';
 import { trabajo_social } from './trabajo_social';
+import { educacion_fisica } from './educacion_fisica';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -160,6 +161,11 @@ export const departamentos: Departamento[] = [
         id: "trabajo_social",
         name: "Licenciatura en Trabajo Social",
         planEstudios: trabajo_social
+      },
+      {
+        id: "educacion_fisica",
+        name: "Licenciatura en Educación Física",
+        planEstudios: educacion_fisica
       }
     ]
   }
