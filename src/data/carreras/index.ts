@@ -63,8 +63,8 @@ export const departamentos: Departamento[] = [
     ]
   },
   {
-    id: "cs_salud",
-    name: "Departamento de Ciencias de la Salud",
+    id: "odontologia_dept",
+    name: "Departamento de Odontología",
     carreras: [
       {
         id: "odontologia",
