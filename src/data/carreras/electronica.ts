@@ -115,7 +115,7 @@ export const electronica: Materia[] = [
   },
   {
     id: '3697',
-    label: 'Teoría de los circuitos I',
+    label: 'Teoría de los Circuitos I',
     anio: 2,
     cuatrimestre: 1,
     correlativas: ['3688', '3687']
@@ -199,7 +199,7 @@ export const electronica: Materia[] = [
   },
   {
     id: '3709',
-    label: 'Teoría de los circuitos III',
+    label: 'Teoría de los Circuitos III',
     anio: 3,
     cuatrimestre: 1,
     correlativas: ['3703']

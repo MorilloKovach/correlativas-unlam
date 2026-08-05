@@ -31,7 +31,7 @@ export const arquitectura: Materia[] = [
   },
   {
     id: '2956',
-    label: 'MatemÉtica Aplicada I',
+    label: 'Matemática Aplicada I',
     anio: 1,
     cuatrimestre: 1,
     correlativas: []
@@ -66,7 +66,7 @@ export const arquitectura: Materia[] = [
   },
   {
     id: '2961',
-    label: 'MatemÉtica Aplicada II',
+    label: 'Matemática Aplicada II',
     anio: 1,
     cuatrimestre: 2,
     correlativas: ['2956']

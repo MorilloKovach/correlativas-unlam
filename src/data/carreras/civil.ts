@@ -66,14 +66,14 @@ export const civil: Materia[] = [
   },
   {
     id: '4130',
-    label: 'Geotopografa',
+    label: 'Geotopografía',
     anio: 1,
     cuatrimestre: 2,
     correlativas: ['4123', '4125']
   },
   {
     id: '4131',
-    label: 'Innovación en Materiales de Construccin',
+    label: 'Innovación en Materiales de Construcción',
     anio: 1,
     cuatrimestre: 2,
     correlativas: ['4124']
@@ -136,7 +136,7 @@ export const civil: Materia[] = [
   },
   {
     id: '4140',
-    label: 'Tecnología de la Construccin',
+    label: 'Tecnología de la Construcción',
     anio: 2,
     cuatrimestre: 1,
     correlativas: ['4124', '4129', '4130', '4131']
@@ -255,14 +255,14 @@ export const civil: Materia[] = [
   },
   {
     id: '4157',
-    label: 'Construcciones Metlicas y de Madera',
+    label: 'Construcciones Metálicas y de Madera',
     anio: 4,
     cuatrimestre: 1,
     correlativas: ['4152']
   },
   {
     id: '4158',
-    label: 'Diseño Arquitectnico, Planeamiento y Urbanismo',
+    label: 'Diseño Arquitectónico, Planeamiento y Urbanismo',
     anio: 4,
     cuatrimestre: 2,
     correlativas: ['4125', '4140', '4150', '4151', '4154']
@@ -297,7 +297,7 @@ export const civil: Materia[] = [
   },
   {
     id: '4163',
-    label: 'PrcÉtica Profesional Supervisada',
+    label: 'Práctica Profesional Supervisada',
     anio: 4,
     cuatrimestre: 1,
     correlativas: ['4149']
@@ -325,7 +325,7 @@ export const civil: Materia[] = [
   },
   {
     id: '4167',
-    label: 'Modelización de las Construcciones Metlicas y de Madera',
+    label: 'Modelización de las Construcciones Metálicas y de Madera',
     anio: 5,
     cuatrimestre: 1,
     correlativas: ['4157']
@@ -381,7 +381,7 @@ export const civil: Materia[] = [
   },
   {
     id: '4175',
-    label: 'Planificacin y Gestión de Sistemas del Transporte',
+    label: 'Planificación y Gestión de Sistemas del Transporte',
     anio: 5,
     cuatrimestre: 2,
     correlativas: ['4169']
@@ -409,7 +409,7 @@ export const civil: Materia[] = [
   },
   {
     id: '4179',
-    label: 'BIM y Gestión de la Construccin',
+    label: 'BIM y Gestión de la Construcción',
     anio: 5,
     cuatrimestre: 2,
     correlativas: ['4158', '4169', '4161']

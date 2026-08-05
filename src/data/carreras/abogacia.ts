@@ -3,28 +3,28 @@ import type { Materia } from '../types';
 export const abogacia: Materia[] = [
   {
     id: '02302',
-    label: 'DERECHO POLTICO',
+    label: 'DERECHO POLÍTICO',
     anio: 1,
     cuatrimestre: 1,
     correlativas: []
   },
   {
     id: '02340',
-    label: 'INTRODUCCIN AL ESTUDIO DEL DERECHO',
+    label: 'INTRODUCCIÓN AL ESTUDIO DEL DERECHO',
     anio: 1,
     cuatrimestre: 1,
     correlativas: []
   },
   {
     id: '02341',
-    label: 'HISTORIA Y EVOLUCIN DE LAS INSTITUCIONES DEL DERECHO',
+    label: 'HISTORIA Y EVOLUCIÓN DE LAS INSTITUCIONES DEL DERECHO',
     anio: 1,
     cuatrimestre: 1,
     correlativas: []
   },
   {
     id: '00901',
-    label: 'INGLS NIVEL I',
+    label: 'INGLÉS NIVEL I',
     anio: 1,
     cuatrimestre: 2,
     correlativas: []
@@ -38,14 +38,14 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02306',
-    label: 'FILOSOFA DEL DERECHO',
+    label: 'FILOSOFÍA DEL DERECHO',
     anio: 1,
     cuatrimestre: 2,
     correlativas: []
   },
   {
     id: '02309',
-    label: 'ECONOMA POLTICA',
+    label: 'ECONOMÍA POLÍTICA',
     anio: 1,
     cuatrimestre: 2,
     correlativas: []
@@ -59,14 +59,14 @@ export const abogacia: Materia[] = [
   },
   {
     id: '00911',
-    label: 'COMPUTACIN NIVEL I',
+    label: 'COMPUTACIÓN NIVEL I',
     anio: 2,
     cuatrimestre: 1,
     correlativas: []
   },
   {
     id: '02305',
-    label: 'SOCIOLOGA',
+    label: 'SOCIOLOGÍA',
     anio: 2,
     cuatrimestre: 1,
     correlativas: ['02306']
@@ -94,7 +94,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '00902',
-    label: 'INGLS NIVEL II',
+    label: 'INGLÉS NIVEL II',
     anio: 2,
     cuatrimestre: 2,
     correlativas: ['00901']
@@ -108,7 +108,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02333',
-    label: 'DERECHO PBLICO: PROVINCIAL Y MUNICIPAL',
+    label: 'DERECHO PÚBLICO: PROVINCIAL Y MUNICIPAL',
     anio: 2,
     cuatrimestre: 2,
     correlativas: ['02304']
@@ -122,7 +122,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '00912',
-    label: 'COMPUTACIN&#160; NIVEL II',
+    label: 'COMPUTACIÓN&#160; NIVEL II',
     anio: 3,
     cuatrimestre: 1,
     correlativas: ['00911']
@@ -136,7 +136,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02345',
-    label: 'DERECHO CIVIL Y COMERCIAL IV (DERECHOS REALES Y GARANTAS)',
+    label: 'DERECHO CIVIL Y COMERCIAL IV (DERECHOS REALES Y GARANTÍAS)',
     anio: 3,
     cuatrimestre: 1,
     correlativas: ['02344']
@@ -171,7 +171,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '00903',
-    label: 'INGLS NIVEL III',
+    label: 'INGLÉS NIVEL III',
     anio: 4,
     cuatrimestre: 1,
     correlativas: ['00902']
@@ -199,7 +199,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '00904',
-    label: 'INGLS NIVEL IV',
+    label: 'INGLÉS NIVEL IV',
     anio: 4,
     cuatrimestre: 2,
     correlativas: ['00903']
@@ -213,28 +213,28 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02319',
-    label: 'POLTICA ECONMICA',
+    label: 'POLÍTICA ECONÓMICA',
     anio: 4,
     cuatrimestre: 2,
     correlativas: ['02309']
   },
   {
     id: '02338',
-    label: 'TALLER DE RETORICA Y ORATORIA FORENSE',
+    label: 'TALLER DE RETÓRICA Y ORATORIA FORENSE',
     anio: 4,
     cuatrimestre: 2,
     correlativas: ['02305']
   },
   {
     id: '02349',
-    label: 'DERECHO EMPRESARIO II (TTULOS VALORES Y CONCURSOS Y QUIEBRAS)',
+    label: 'DERECHO EMPRESARIO II (TÍTULOS VALORES Y CONCURSOS Y QUIEBRAS)',
     anio: 4,
     cuatrimestre: 2,
     correlativas: ['02323', '02346', '02348']
   },
   {
     id: '02325',
-    label: 'METODOLOGA DE LA INVESTIGACIN JURDICA',
+    label: 'METODOLOGÍA DE LA INVESTIGACIÓN JURÍDICA',
     anio: 5,
     cuatrimestre: 1,
     correlativas: ['02306', '02347', '02349']
@@ -248,14 +248,14 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02334',
-    label: 'SEMINARIO DE RESOLUCIN ADECUADA DE CONTROVERSIAS',
+    label: 'SEMINARIO DE RESOLUCIÓN ADECUADA DE CONTROVERSIAS',
     anio: 5,
     cuatrimestre: 1,
     correlativas: ['02323']
   },
   {
     id: '02335',
-    label: 'PRCTICA PROFESIONAL I',
+    label: 'PRÁCTICA PROFESIONAL I',
     anio: 5,
     cuatrimestre: 1,
     correlativas: ['02348', '02327', '02323']
@@ -269,7 +269,7 @@ export const abogacia: Materia[] = [
   },
   {
     id: '02336',
-    label: 'PRCTICA PROFESIONAL II',
+    label: 'PRÁCTICA PROFESIONAL II',
     anio: 5,
     cuatrimestre: 2,
     correlativas: ['02335']
