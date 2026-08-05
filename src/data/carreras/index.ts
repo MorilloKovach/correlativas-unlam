@@ -10,6 +10,7 @@ import { abogacia } from './abogacia';
 import { odontologia } from './odontologia';
 import { medicina } from './medicina';
 import { nutricion } from './nutricion';
+import { enfermeria } from './enfermeria';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -98,6 +99,11 @@ export const departamentos: Departamento[] = [
         id: "nutricion",
         name: "Licenciatura en Nutrición",
         planEstudios: nutricion
+      },
+      {
+        id: "enfermeria",
+        name: "Licenciatura en Enfermería",
+        planEstudios: enfermeria
       }
     ]
   },
