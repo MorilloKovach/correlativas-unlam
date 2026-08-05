@@ -7,6 +7,7 @@ import { civil } from './civil';
 import { arquitectura } from './arqui';
 import { abogacia } from './abogacia';
 import { odontologia } from './odontologia';
+import { medicina } from './medicina';
 
 export const departamentos: Departamento[] = [
   {
@@ -70,6 +71,17 @@ export const departamentos: Departamento[] = [
         id: "odontologia",
         name: "Odontología",
         planEstudios: odontologia
+      }
+    ]
+  },
+  {
+    id: "cs_salud",
+    name: "Departamento de Ciencias de la Salud",
+    carreras: [
+      {
+        id: "medicina",
+        name: "Medicina",
+        planEstudios: medicina
       }
     ]
   }
