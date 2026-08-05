@@ -36,7 +36,13 @@ export const departamentos: Departamento[] = [
         id: "civil",
         name: "Ingeniería Civil",
         planEstudios: civil
-      },
+      }
+    ]
+  },
+  {
+    id: "arq",
+    name: "Departamento de Arquitectura",
+    carreras: [
       {
         id: "arquitectura",
         name: "Arquitectura",
