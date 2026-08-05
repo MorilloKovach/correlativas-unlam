@@ -58,6 +58,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGradeNode, setSelectedGradeNode] = useState<string | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const recommendations = getRecommendations();
   const difficulty = getSemesterDifficulty();
   const lastCareerIdRef = useRef(careerId);
@@ -174,6 +175,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
                 canApprove: canApprove(materia.id),
                 onClick: handleNodeClickWrapper,
                 onIncrementAttempt: incrementAttempt,
+                onHover: setHoveredNode,
               },
             });
           });
@@ -202,6 +204,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
               canApprove: canApprove(materia.id),
               onClick: handleNodeClickWrapper,
               onIncrementAttempt: incrementAttempt,
+              onHover: setHoveredNode,
             },
           };
         });
@@ -265,6 +268,48 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
 
     setEdges(newEdges);
   }, [getStatus, handleNodeClick, incrementAttempt, subjectProgress, setNodes, setEdges, planEstudios, careerId]);
+
+  // Handle hover effect
+  useEffect(() => {
+    setNodes((nds) => nds.map((node) => {
+      if (!hoveredNode) {
+        return { ...node, style: { ...node.style, opacity: 1, transition: 'opacity 0.2s' } };
+      }
+      
+      const hoveredMateria = planEstudios.find(m => m.id === hoveredNode);
+      const isHovered = node.id === hoveredNode;
+      const isBackward = hoveredMateria?.correlativas.includes(node.id) || false;
+      const isForward = planEstudios.find(m => m.id === node.id)?.correlativas.includes(hoveredNode) || false;
+      
+      const isHighlighted = isHovered || isBackward || isForward;
+      
+      return {
+        ...node,
+        style: {
+          ...node.style,
+          opacity: isHighlighted ? 1 : 0.2,
+          transition: 'opacity 0.2s'
+        }
+      };
+    }));
+
+    setEdges((eds) => eds.map((edge) => {
+      if (!hoveredNode) {
+        return { ...edge, style: { ...edge.style, opacity: 1, transition: 'opacity 0.2s' } };
+      }
+      
+      const isConnected = edge.source === hoveredNode || edge.target === hoveredNode;
+      
+      return {
+        ...edge,
+        style: {
+          ...edge.style,
+          opacity: isConnected ? 1 : 0.1,
+          transition: 'opacity 0.2s'
+        }
+      };
+    }));
+  }, [hoveredNode, planEstudios, setNodes, setEdges]);
 
   // Save positions when they change (e.g. from dragging)
   useEffect(() => {

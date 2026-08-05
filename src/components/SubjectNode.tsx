@@ -13,11 +13,12 @@ interface SubjectNodeProps {
     canApprove: boolean;
     onClick: (id: string) => void;
     onIncrementAttempt: (id: string) => void;
+    onHover?: (id: string | null) => void;
   };
 }
 
 export function SubjectNode({ data }: SubjectNodeProps) {
-  const { id, label, status, attempts, syncStatus, onClick, onIncrementAttempt } = data;
+  const { id, label, status, attempts, syncStatus, onClick, onIncrementAttempt, onHover } = data;
 
   const baseClasses = "relative w-[240px] rounded-xl p-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 font-sans border-2 border-transparent";
   
@@ -45,6 +46,8 @@ export function SubjectNode({ data }: SubjectNodeProps) {
       <div 
         className={cn(baseClasses, statusClasses[status], syncClasses)}
         onClick={() => onClick(id)}
+        onMouseEnter={() => onHover && onHover(id)}
+        onMouseLeave={() => onHover && onHover(null)}
       >
         <Handle 
           type="target" 
