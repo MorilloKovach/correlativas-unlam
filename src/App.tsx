@@ -28,7 +28,7 @@ function App() {
   // Si no hay usuario y no hay carrera de invitado seleccionada, mostramos la Landing Page
   if (!loading && !user && !guestCareerId && !isGuestSelectorOpen) {
     return (
-      <main className="w-screen h-screen overflow-hidden relative bg-slate-950 flex flex-col items-center justify-center p-6">
+      <main className="w-screen h-[100dvh] overflow-hidden relative bg-slate-950 flex flex-col items-center justify-center p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950" />
         
         <div className="relative z-10 max-w-3xl w-full text-center space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -75,7 +75,7 @@ function App() {
   }
 
   return (
-    <main className="w-screen h-screen overflow-hidden relative">
+    <main className="w-screen h-[100dvh] overflow-hidden relative">
       {/* Solo renderizamos el FlowGraph si tenemos una carrera seleccionada */}
       {activeCareerId && (
         <FlowGraph 

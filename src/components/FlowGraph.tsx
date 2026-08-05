@@ -340,7 +340,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
 
   return (
     <div className="w-full h-full flex flex-col bg-slate-950">
-      <header className="absolute bottom-2 left-2 right-2 sm:bottom-auto sm:right-auto sm:top-4 sm:left-4 z-20 glass rounded-2xl p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 sm:min-w-[320px] sm:max-w-[350px] max-h-[50vh] sm:max-h-[calc(100vh-2rem)] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] sm:shadow-2xl border border-slate-700/50 transition-all duration-300">
+      <header className="absolute top-2 left-2 right-2 sm:right-auto sm:top-4 sm:left-4 z-20 glass rounded-2xl p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 sm:min-w-[320px] sm:max-w-[350px] max-h-[80dvh] sm:max-h-[calc(100dvh-2rem)] shadow-2xl border border-slate-700/50 transition-all duration-300">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent truncate pr-2">
             {carrera?.name || 'Cargando...'}
@@ -349,7 +349,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
           >
-            {isSidebarOpen ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+            {isSidebarOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
         </div>
         
