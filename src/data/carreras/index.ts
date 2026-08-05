@@ -17,6 +17,7 @@ import { comunicacion } from './comunicacion';
 import { trabajo_social } from './trabajo_social';
 import { educacion_fisica } from './educacion_fisica';
 import { profesorado_educacion_fisica } from './profesorado_educacion_fisica';
+import { ciencia_politica } from './ciencia_politica';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -78,6 +79,11 @@ export const departamentos: Departamento[] = [
         id: "abogacia",
         name: "Abogacía",
         planEstudios: abogacia
+      },
+      {
+        id: "ciencia_politica",
+        name: "Licenciatura en Ciencia Política",
+        planEstudios: ciencia_politica
       }
     ]
   },
