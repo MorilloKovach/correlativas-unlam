@@ -4,6 +4,7 @@ import { electronica } from './electronica';
 import { industrial } from './industrial';
 import { mecanica } from './mecanica';
 import { civil } from './civil';
+import { energias } from './energias';
 import { arquitectura } from './arqui';
 import { abogacia } from './abogacia';
 import { odontologia } from './odontologia';
@@ -42,6 +43,11 @@ export const departamentos: Departamento[] = [
         id: "civil",
         name: "Ingeniería Civil",
         planEstudios: civil
+      },
+      {
+        id: "energias",
+        name: "Ingeniería en Energías Renovables",
+        planEstudios: energias
       }
     ]
   },
