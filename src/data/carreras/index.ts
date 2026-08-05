@@ -14,6 +14,7 @@ import { enfermeria } from './enfermeria';
 import { kinesiologia } from './kinesiologia';
 import { laborales } from './laborales';
 import { comunicacion } from './comunicacion';
+import { trabajo_social } from './trabajo_social';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -154,6 +155,11 @@ export const departamentos: Departamento[] = [
         id: "comunicacion",
         name: "Licenciatura en Comunicación Social",
         planEstudios: comunicacion
+      },
+      {
+        id: "trabajo_social",
+        name: "Licenciatura en Trabajo Social",
+        planEstudios: trabajo_social
       }
     ]
   }
