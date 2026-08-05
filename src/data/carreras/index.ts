@@ -9,6 +9,7 @@ import { abogacia } from './abogacia';
 import { odontologia } from './odontologia';
 import { medicina } from './medicina';
 import { administracion } from './administracion';
+import { contador } from './contador';
 
 export const departamentos: Departamento[] = [
   {
@@ -94,6 +95,11 @@ export const departamentos: Departamento[] = [
         id: "administracion",
         name: "Licenciatura en Administración",
         planEstudios: administracion
+      },
+      {
+        id: "contador",
+        name: "Contador Público",
+        planEstudios: contador
       }
     ]
   }
