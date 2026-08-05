@@ -12,6 +12,7 @@ import { medicina } from './medicina';
 import { nutricion } from './nutricion';
 import { enfermeria } from './enfermeria';
 import { kinesiologia } from './kinesiologia';
+import { laborales } from './laborales';
 import { administracion } from './administracion';
 import { contador } from './contador';
 import { comercio } from './comercio';
@@ -136,6 +137,17 @@ export const departamentos: Departamento[] = [
         id: "economia",
         name: "Licenciatura en Economía",
         planEstudios: economia
+      }
+    ]
+  },
+  {
+    id: "cs_sociales",
+    name: "Departamento de Humanidades y Ciencias Sociales",
+    carreras: [
+      {
+        id: "laborales",
+        name: "Licenciatura en Relaciones Laborales",
+        planEstudios: laborales
       }
     ]
   }
