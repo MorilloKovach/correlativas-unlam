@@ -11,7 +11,7 @@ import {
   type Edge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { LayoutList, CheckSquare, Gauge, ChevronUp, ChevronDown, GraduationCap } from 'lucide-react';
+import { LayoutList, CheckSquare, Gauge, ChevronUp, ChevronDown, GraduationCap, Award } from 'lucide-react';
 
 import { SubjectNode } from './SubjectNode';
 import { GradeModal } from './GradeModal';
@@ -51,7 +51,8 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
     careerId,
     syncFriendPlannedIds,
     plannedIds,
-    canApprove
+    canApprove,
+    getIntermediateTitleProgress
   } = useCorrelativas(viewingFriendId, guestCareerId, syncingFriendId);
   
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
@@ -61,6 +62,7 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const recommendations = getRecommendations();
   const difficulty = getSemesterDifficulty();
+  const intermediateTitle = getIntermediateTitleProgress();
   const lastCareerIdRef = useRef(careerId);
 
   const handleNodeClickWrapper = useCallback((id: string) => {
@@ -392,6 +394,35 @@ export function FlowGraph({ viewingFriendId, syncingFriendId, guestCareerId }: F
                 />
               </div>
             </div>
+
+            {intermediateTitle && (
+              <div className="flex flex-col gap-1 mt-1">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+                  <span>Título Intermedio</span>
+                  <span className={intermediateTitle.hasTitle ? "text-emerald-400 font-bold" : ""}>
+                    {intermediateTitle.approvedCount} / {intermediateTitle.totalRequired}
+                  </span>
+                </div>
+                <div className="w-full h-1.5 bg-slate-700/50 rounded-full overflow-hidden mb-1">
+                  <div 
+                    className={cn(
+                      "h-full transition-all duration-500 ease-out",
+                      intermediateTitle.hasTitle ? "bg-emerald-400" : "bg-gradient-to-r from-indigo-500 to-purple-500"
+                    )}
+                    style={{ width: `${intermediateTitle.percentage}%` }}
+                  />
+                </div>
+                <div className="flex items-start gap-2">
+                  <Award size={14} className={intermediateTitle.hasTitle ? "text-emerald-400 shrink-0 mt-0.5" : "text-slate-500 shrink-0 mt-0.5"} />
+                  <span className={cn(
+                    "text-xs leading-tight font-medium",
+                    intermediateTitle.hasTitle ? "text-emerald-300" : "text-slate-300"
+                  )}>
+                    {intermediateTitle.title}
+                  </span>
+                </div>
+              </div>
+            )}
             
             <div className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
               <div className="p-2 bg-blue-500/20 text-blue-400 rounded-lg">

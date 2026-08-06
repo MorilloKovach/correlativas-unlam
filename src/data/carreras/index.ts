@@ -31,16 +31,19 @@ export const departamentos: Departamento[] = [
       {
         id: "informatica",
         name: "Ingeniería en Informática",
+        intermediateTitle: "Técnico Universitario en Desarrollo de Software",
         planEstudios: informatica
       },
       {
         id: "electronica",
         name: "Ingeniería Electrónica",
+        intermediateTitle: "Técnico Universitario en Electrónica",
         planEstudios: electronica
       },
       {
         id: "industrial",
         name: "Ingeniería Industrial",
+        intermediateTitle: "Técnico Universitario en Gestión Industrial",
         planEstudios: industrial
       },
       {
@@ -51,6 +54,7 @@ export const departamentos: Departamento[] = [
       {
         id: "civil",
         name: "Ingeniería Civil",
+        intermediateTitle: "Técnico Universitario en Construcción",
         planEstudios: civil
       },
       {
@@ -115,6 +119,7 @@ export const departamentos: Departamento[] = [
       {
         id: "enfermeria",
         name: "Licenciatura en Enfermería",
+        intermediateTitle: "Enfermero/a Profesional",
         planEstudios: enfermeria
       },
       {
@@ -131,21 +136,25 @@ export const departamentos: Departamento[] = [
       {
         id: "administracion",
         name: "Licenciatura en Administración",
+        intermediateTitle: "Técnico Universitario en Administración",
         planEstudios: administracion
       },
       {
         id: "contador",
         name: "Contador Público",
+        intermediateTitle: "Técnico Universitario en Contabilidad",
         planEstudios: contador
       },
       {
         id: "comercio",
         name: "Licenciatura en Comercio Internacional",
+        intermediateTitle: "Técnico Universitario en Comercio Internacional",
         planEstudios: comercio
       },
       {
         id: "economia",
         name: "Licenciatura en Economía",
+        intermediateTitle: "Analista Económico",
         planEstudios: economia
       }
     ]
@@ -157,16 +166,19 @@ export const departamentos: Departamento[] = [
       {
         id: "laborales",
         name: "Licenciatura en Relaciones Laborales",
+        intermediateTitle: "Técnico Universitario en Relaciones Laborales",
         planEstudios: laborales
       },
       {
         id: "comunicacion",
         name: "Licenciatura en Comunicación Social",
+        intermediateTitle: "Técnico Universitario en Periodismo",
         planEstudios: comunicacion
       },
       {
         id: "trabajo_social",
         name: "Licenciatura en Trabajo Social",
+        intermediateTitle: "Tecnicatura Universitaria en Servicios Sociales",
         planEstudios: trabajo_social
       },
       {

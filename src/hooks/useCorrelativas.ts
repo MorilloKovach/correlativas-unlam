@@ -424,6 +424,31 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
   const totalApproved = Object.values(subjectProgress).filter(p => p.status === 'approved').length;
   const progressPercentage = planEstudios.length > 0 ? Math.round((totalApproved / planEstudios.length) * 100) : 0;
 
+  const getIntermediateTitleProgress = useCallback(() => {
+    const career = getCarreraById(targetCareerId);
+    if (!career || !career.intermediateTitle) {
+      return null;
+    }
+
+    const requiredSubjects = planEstudios.filter(m => m.anio <= 3);
+    const totalRequired = requiredSubjects.length;
+    
+    if (totalRequired === 0) return null;
+
+    const approvedCount = requiredSubjects.filter(m => {
+      const p = subjectProgress[m.id];
+      return p && p.status === 'approved';
+    }).length;
+
+    return {
+      title: career.intermediateTitle,
+      hasTitle: approvedCount === totalRequired,
+      approvedCount,
+      totalRequired,
+      percentage: Math.round((approvedCount / totalRequired) * 100)
+    };
+  }, [targetCareerId, planEstudios, subjectProgress]);
+
   return {
     mode,
     setMode,
@@ -442,6 +467,7 @@ export function useCorrelativas(viewingFriendId?: string | null, guestCareerId?:
     planEstudios,
     careerId: targetCareerId,
     syncFriendPlannedIds,
-    canApprove
+    canApprove,
+    getIntermediateTitleProgress
   };
 }

@@ -10,6 +10,7 @@ export interface Materia {
 export interface Carrera {
   id: string;
   name: string;
+  intermediateTitle?: string;
   planEstudios: Materia[];
 }
 
